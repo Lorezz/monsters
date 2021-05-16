@@ -5,9 +5,78 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #2c2f36;
+  color: white;
+  display: flex;
+  height: 100vh;
+  font-size: 14px;
+  padding: 30px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.container {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.link {
+  color: #61dafb;
+}
+
+.cls-1 {
+  fill: #c52728;
+}
+
+.cls-2 {
+  fill: #fceaed;
+}
+
+.cls-3 {
+  fill: #3f4da0;
+}
+
+.cls-4 {
+  fill: #783192;
+}
+
+.cls-5 {
+  fill: #33429a;
+}
+
+.cls-6 {
+  fill: #fff;
+}
+
+.cls-7 {
+  fill: #f48fb1;
+}
+
+.cls-8 {
+  fill: #881a51;
+}
+
+.cls-9 {
+  fill: #d81b60;
+}
+
+.cls-10 {
+  fill: #f89e1b;
+}
+
+.cls-11 {
+  fill: #e35325;
+}
+
+.cls-12 {
+  fill: #db8c18;
 }

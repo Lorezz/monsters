@@ -13,6 +13,10 @@ body {
   padding: 30px;
 }
 
+div {
+  padding: 10px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -27,6 +31,10 @@ code {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.cols {
+  display: flex;
 }
 
 .link {
@@ -79,4 +87,24 @@ code {
 
 .cls-12 {
   fill: #db8c18;
+}
+
+.sections_wrap {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.section {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.grid {
+  display: grid;
+  border: 1px solid #464954;
+  gap: 4px;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
 }

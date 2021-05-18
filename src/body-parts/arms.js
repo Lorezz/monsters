@@ -78,7 +78,7 @@ export const arm9 = `
     />
   </svg>`;
 
-export const arm8 = (props) => (
+export const Arm8 = (props) => (
   <svg {...props} viewBox="0 0 182.28 162.61">
     <g id="arms_8">
       <path

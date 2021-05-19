@@ -6,6 +6,8 @@ import saveAs from 'save-as';
 
 function App() {
   const [canvas, setCanvas] = useState('');
+  const [dataJSON, setDataJSON] = useState('');
+  const [dataSVG, setDataSVG] = useState('');
   const [color, setColor] = useState('#464954');
   const canvasRef = useRef(null);
 
@@ -260,10 +262,48 @@ function App() {
   };
 
   const saveToJson = () => {
-    var json_data = JSON.stringify(canvas.toDatalessJSON());
-    console.log('dataless', json_data);
+    // var json_data = JSON.stringify(canvas.toDatalessJSON());
+    // console.log('dataless', json_data);
     const result = canvas.toJSON();
     console.log('json', result);
+    const str = JSON.stringify(result, null, 2);
+    let blob = new Blob([str], { type: 'text/plain' });
+    saveAs(blob, 'monster.json');
+  };
+
+  const handleLoadJson = (e) => {
+    e.preventDefault();
+
+    if (!dataJSON) return;
+    const json = JSON.parse(dataJSON);
+    if (!json) return;
+
+    canvas.loadFromJSON(
+      json,
+      () => {
+        canvas.renderAll();
+      },
+      (o, object) => {
+        console.log(o, object);
+      }
+    );
+  };
+
+  const handleLoadSVG = (e) => {
+    e.preventDefault();
+
+    if (!dataSVG) return;
+
+    fabric.loadSVGFromString(dataSVG, (objects, options) => {
+      var obj = fabric.util.groupSVGElements(objects, options);
+      obj
+        .scaleToHeight(canvas.height / 6)
+        .set({ left: canvas.width / 2, top: canvas.height / 2 })
+        .setCoords();
+
+      canvas.add(obj);
+      canvas.requestRenderAll();
+    });
   };
 
   const handleChangeColor = (hex) => {
@@ -343,6 +383,39 @@ function App() {
                 </section>
               );
             })}
+            <section>
+              <h4>{'Load JSON'}</h4>
+              <form onSubmit={(e) => handleLoadJson(e)}>
+                <div>
+                  <textarea
+                    cols={30}
+                    rows={10}
+                    value={dataJSON}
+                    onChange={(e) => setDataJSON(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <button type="submit">Load JSON</button>
+                </div>
+              </form>
+            </section>
+
+            <section>
+              <h4>{'Load SVG'}</h4>
+              <form onSubmit={(e) => handleLoadSVG(e)}>
+                <div>
+                  <textarea
+                    cols={30}
+                    rows={10}
+                    value={dataSVG}
+                    onChange={(e) => setDataSVG(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <button type="submit">Load JSON</button>
+                </div>
+              </form>
+            </section>
           </div>
         </div>
       </div>

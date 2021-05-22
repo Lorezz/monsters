@@ -43,5 +43,9 @@
   },
   "devDependencies": {
     "svgo": "^2.3.0"
-  }
+  },
+  "main": "index.js",
+  "repository": "git@github.com:Lorezz/monsters.git",
+  "author": "Lorenzo Ponticelli aka Lorezz <point.point@gmail.com> (https://lorezz.me/)",
+  "license": "MIT"
 }

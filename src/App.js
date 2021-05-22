@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { fabric } from 'fabric';
 import saveAs from 'save-as';
-
-// import { arm9 } from './body-parts/arms';
+import 'fabric-history';
 
 function App() {
   const [canvas, setCanvas] = useState('');
@@ -10,18 +9,17 @@ function App() {
   const [dataSVG, setDataSVG] = useState('');
   const [color, setColor] = useState('#464954');
   const canvasRef = useRef(null);
-
+  const originalSize = { height: 600, width: 800 };
   const initCanvas = () => {
     return new fabric.Canvas(canvasRef.current, {
-      height: 600,
-      width: 800,
+      ...originalSize,
       // backgroundColor: '#464954',
       backgroundColor: 'transparent',
       preserveObjectStacking: true,
       // isDrawingMode: false,
       // selection: false,
       // hoverCursor: 'pointer',
-      //stopContextMenu: true
+      // stopContextMenu: true
     });
   };
 
@@ -66,36 +64,42 @@ function App() {
     }
   }, [canvas]);
 
+  const addRect = () => {
+    let rect = new fabric.Rect({
+      fill: 'white',
+      width: 100,
+      height: 100,
+      left: 200,
+      top: 200,
+    });
+    canvas.add(rect);
+    canvas.requestRenderAll();
+  };
+
+  const addTri = () => {
+    const triangle = new fabric.Triangle({
+      fill: 'blue',
+      width: 100,
+      height: 100,
+      left: 200,
+      top: 200,
+    });
+    canvas.add(triangle);
+    canvas.requestRenderAll();
+  };
+
+  const addCircle = () => {
+    const triangle = new fabric.Circle({
+      fill: 'green',
+      radius: 50,
+      left: 200,
+      top: 200,
+    });
+    canvas.add(triangle);
+    canvas.requestRenderAll();
+  };
+
   // const addSample = () => {
-  //   // let rect = new fabric.Rect({
-  //   //   width: 350,
-  //   //   height: 100,
-  //   //   fill: 'white',
-  //   //   left: 0,
-  //   //   top: 0,
-  //   //   selectable: false,
-  //   //   excludeFromExport: true,
-  //   // });
-  //   // canvas.add(rect);
-  //   // let rect2 = new fabric.Rect({
-  //   //   width: 100,
-  //   //   height: 100,
-  //   //   fill: 'red',
-  //   //   left: 100,
-  //   //   top: 100,
-  //   // });
-  //   // canvas.add(rect2);
-  //   // const triangle = new fabric.Triangle({
-  //   //   strokeWidth: 5,
-  //   //   stroke: 'blue',
-  //   //   fill: 'transparent',
-  //   //   width: 50,
-  //   //   height: 50,
-  //   //   left: 200,
-  //   //   top: 200,
-  //   // });
-  //   // canvas.add(triangle);
-  //   // canvas.setActiveObject(triangle);
 
   //   fabric.loadSVGFromURL('/test_svg/eyes.svg', (objects, options) => {
   //     var obj = fabric.util.groupSVGElements(objects, options);
@@ -271,13 +275,47 @@ function App() {
     saveAs(blob, 'monster.json');
   };
 
+  const readFile = (file) => {
+    return new Promise((resolve, reject) => {
+      let fr = new FileReader();
+      fr.onload = (x) => resolve(fr.result);
+      fr.readAsText(file);
+    });
+  };
+
+  // function readSingleFile(e) {
+  //   var file = e.target.files[0];
+  //   if (!file) {
+  //     return;
+  //   }
+  //   var reader = new FileReader();
+  //   reader.onload = function (e) {
+  //     var contents = e.target.result;
+  //   };
+  //   reader.readAsText(file);
+  // }
+
+  const onInputFile = async (e, type) => {
+    const file = e?.target?.files[0];
+    if (!file) return;
+    const data = await readFile(file);
+    console.log(data);
+    if (type === 'svg') {
+      loadSvgStr(data);
+    } else {
+      loadJson(data);
+    }
+  };
+
   const handleLoadJson = (e) => {
-    e.preventDefault();
-
+    e?.preventDefault();
     if (!dataJSON) return;
-    const json = JSON.parse(dataJSON);
-    if (!json) return;
+    loadJson(dataJSON);
+  };
 
+  const loadJson = (data) => {
+    const json = JSON.parse(data);
+    if (!json) return;
     canvas.loadFromJSON(
       json,
       () => {
@@ -293,8 +331,11 @@ function App() {
     e.preventDefault();
 
     if (!dataSVG) return;
+    loadSvgStr(dataSVG);
+  };
 
-    fabric.loadSVGFromString(dataSVG, (objects, options) => {
+  const loadSvgStr = (data) => {
+    fabric.loadSVGFromString(data, (objects, options) => {
       var obj = fabric.util.groupSVGElements(objects, options);
       obj
         .scaleToHeight(canvas.height / 6)
@@ -325,6 +366,46 @@ function App() {
     });
   };
 
+  const undo = () => {
+    canvas.undo();
+  };
+  const redo = () => {
+    canvas.redo();
+  };
+
+  const duplicate = () => {
+    canvas.getActiveObject().clone((cloned) => {
+      canvas.discardActiveObject();
+      cloned.set({
+        left: cloned.left + 10,
+        top: cloned.top + 10,
+        evented: true,
+      });
+      if (cloned.type === 'activeSelection') {
+        // active selection needs a reference to the canvas.
+        cloned.canvas = canvas;
+        cloned.forEachObject((obj) => {
+          canvas.add(obj);
+        });
+        cloned.setCoords();
+      } else {
+        canvas.add(cloned);
+      }
+      canvas.setActiveObject(cloned);
+      canvas.requestRenderAll();
+    });
+  };
+
+  const resize = () => {
+    canvas.setWidth(originalSize.width * canvas.getZoom());
+    canvas.setHeight(originalSize.height * canvas.getZoom());
+  };
+
+  const setZoom = (val) => {
+    canvas.setZoom(val);
+    resize();
+  };
+
   const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   const sections = ['Eyes', 'Body', 'Mouth', 'Legs', 'Arms', 'Accessories'];
   return (
@@ -333,7 +414,11 @@ function App() {
       <div className="cols">
         <div>
           <div>
+            <button onClick={() => undo()}>undo</button>
+            <button onClick={() => redo()}>redo</button>
+
             {/* <button onClick={() => addSample()}>add rects</button> */}
+            <button onClick={() => duplicate()}>duplicate</button>
             <button onClick={() => addText()}>add text</button>
             <button onClick={() => removeObj()}>remove current</button>
             <button onClick={() => group()}>group</button>
@@ -349,18 +434,88 @@ function App() {
             <button onClick={() => bringToFront()}>bringToFront</button>
             <button onClick={() => saveToSvg()}>saveToSvg</button>
             <button onClick={() => saveToJson()}>saveToJson</button>
+            <button onClick={() => setZoom(canvas.getZoom() + 0.1)}>
+              zoom
+            </button>
             <input
               type="color"
               value={color}
               onChange={(e) => handleChangeColor(e.target.value)}
             />
           </div>
-          <div style={{ backgroundColor: '#464954', padding: 0, margin: 0 }}>
+          <div
+            style={{
+              backgroundColor: '#464954',
+              padding: 0,
+              margin: 0,
+              position: 'relative',
+            }}
+          >
             <canvas ref={canvasRef} />
+          </div>
+
+          <div style={{ display: 'flex' }}>
+            <section>
+              <h4>{'Load JSON'}</h4>
+              <input
+                type="file"
+                accept="application/json"
+                onChange={(e) => onInputFile(e, 'json')}
+              />
+            </section>
+            <section>
+              <h4>{'Load SVG'}</h4>
+              <input
+                type="file"
+                accept="image/svg+xml"
+                onChange={(e) => onInputFile(e, 'svg')}
+              />
+            </section>
+          </div>
+
+          <div style={{ display: 'flex' }}>
+            <section>
+              <h4>{'Load JSON'}</h4>
+              <form onSubmit={(e) => handleLoadJson(e)}>
+                <div>
+                  <textarea
+                    cols={30}
+                    rows={10}
+                    value={dataJSON}
+                    onChange={(e) => setDataJSON(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <button type="submit">Load JSON</button>
+                </div>
+              </form>
+            </section>
+            <section>
+              <h4>{'Load SVG'}</h4>
+              <form onSubmit={(e) => handleLoadSVG(e)}>
+                <div>
+                  <textarea
+                    cols={30}
+                    rows={10}
+                    value={dataSVG}
+                    onChange={(e) => setDataSVG(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <button type="submit">Load SVG</button>
+                </div>
+              </form>
+            </section>
           </div>
         </div>
         <div>
           <div className="sections_wrap">
+            <section>
+              <h4>{'SHAPES'}</h4>
+              <button onClick={() => addTri()}>tri</button>
+              <button onClick={() => addCircle()}>circle</button>
+              <button onClick={() => addRect()}>rect</button>
+            </section>
             {sections.map((section) => {
               return (
                 <section key={section} className="section">
@@ -383,39 +538,6 @@ function App() {
                 </section>
               );
             })}
-            <section>
-              <h4>{'Load JSON'}</h4>
-              <form onSubmit={(e) => handleLoadJson(e)}>
-                <div>
-                  <textarea
-                    cols={30}
-                    rows={10}
-                    value={dataJSON}
-                    onChange={(e) => setDataJSON(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <button type="submit">Load JSON</button>
-                </div>
-              </form>
-            </section>
-
-            <section>
-              <h4>{'Load SVG'}</h4>
-              <form onSubmit={(e) => handleLoadSVG(e)}>
-                <div>
-                  <textarea
-                    cols={30}
-                    rows={10}
-                    value={dataSVG}
-                    onChange={(e) => setDataSVG(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <button type="submit">Load JSON</button>
-                </div>
-              </form>
-            </section>
           </div>
         </div>
       </div>

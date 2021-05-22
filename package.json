@@ -1,7 +1,11 @@
 {
   "name": "monsters",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "main": "index.js",
+  "repository": "git@github.com:Lorezz/monsters.git",
+  "author": "Lorenzo Ponticelli aka Lorezz <lorezz.me@gmail.com> (https://lorezz.me/)",
+  "license": "MIT",
   "dependencies": {
     "@svgdotjs/svg.js": "^3.0.16",
     "@testing-library/jest-dom": "^5.11.4",
@@ -43,9 +47,5 @@
   },
   "devDependencies": {
     "svgo": "^2.3.0"
-  },
-  "main": "index.js",
-  "repository": "git@github.com:Lorezz/monsters.git",
-  "author": "Lorenzo Ponticelli aka Lorezz <point.point@gmail.com> (https://lorezz.me/)",
-  "license": "MIT"
+  }
 }

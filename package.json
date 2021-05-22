@@ -32,7 +32,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "cp ./CNAME ./build/CNAME && surge ./build monsters-factory.surge.sh"
+    "deploy": "surge ./build --domain https://monsters-factory.surge.sh"
   },
   "eslintConfig": {
     "extends": [

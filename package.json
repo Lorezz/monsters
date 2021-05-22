@@ -1,7 +1,18 @@
 {
   "name": "monsters",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lorezz/monsters.git"
+  },
+  "keywords": [],
+  "author": "Lorenzo Ponticelli aka Lorezz <point.point@gmail.com> (https://lorezz.me/)",
+  "license": "WTFPL",
+  "bugs": {
+    "url": "https://github.com/Lorezz/monsters/issues"
+  },
+  "homepage": "https://github.com/Lorezz/monsters#readme",
   "dependencies": {
     "@svgdotjs/svg.js": "^3.0.16",
     "@testing-library/jest-dom": "^5.11.4",
@@ -20,7 +31,8 @@
     "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "cp ./CNAME ./build/CNAME && surge ./build monsters-factory.surge.sh"
   },
   "eslintConfig": {
     "extends": [
@@ -43,4 +55,6 @@
   "devDependencies": {
     "svgo": "^2.3.0"
   }
+
+
 }

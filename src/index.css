@@ -41,54 +41,6 @@ code {
   color: #61dafb;
 }
 
-.cls-1 {
-  fill: #c52728;
-}
-
-.cls-2 {
-  fill: #fceaed;
-}
-
-.cls-3 {
-  fill: #3f4da0;
-}
-
-.cls-4 {
-  fill: #783192;
-}
-
-.cls-5 {
-  fill: #33429a;
-}
-
-.cls-6 {
-  fill: #fff;
-}
-
-.cls-7 {
-  fill: #f48fb1;
-}
-
-.cls-8 {
-  fill: #881a51;
-}
-
-.cls-9 {
-  fill: #d81b60;
-}
-
-.cls-10 {
-  fill: #f89e1b;
-}
-
-.cls-11 {
-  fill: #e35325;
-}
-
-.cls-12 {
-  fill: #db8c18;
-}
-
 .sections_wrap {
   width: 100%;
   display: flex;
@@ -105,6 +57,8 @@ code {
   display: grid;
   border: 1px solid #464954;
   gap: 4px;
-  grid-template-columns: repeat(3, 100px);
-  grid-template-rows: repeat(3, 100px);
+  grid-template-columns: repeat(3, 50px);
+  grid-template-rows: repeat(3, 50px);
 }
+
+/* samlpe classes */

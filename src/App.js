@@ -2,19 +2,20 @@ import React, { useState, useEffect, useRef } from 'react';
 import { fabric } from 'fabric';
 import saveAs from 'save-as';
 import 'fabric-history';
-
+import { Button, ButtonGroup, Tooltip } from '@chakra-ui/react';
+import { FiTriangle, FiCircle, FiSquare } from 'react-icons/fi';
+import { BiText, BiDuplicate } from 'react-icons/bi';
+import { MdUndo, MdRedo, MdSave } from 'react-icons/md';
 function App() {
   const [canvas, setCanvas] = useState('');
-  const [dataJSON, setDataJSON] = useState('');
-  const [dataSVG, setDataSVG] = useState('');
   const [color, setColor] = useState('#464954');
   const canvasRef = useRef(null);
   const originalSize = { height: 600, width: 800 };
   const initCanvas = () => {
     return new fabric.Canvas(canvasRef.current, {
       ...originalSize,
-      // backgroundColor: '#464954',
-      backgroundColor: 'transparent',
+      // backgroundColor: 'transparent',
+      backgroundColor: '#464954',
       preserveObjectStacking: true,
       // isDrawingMode: false,
       // selection: false,
@@ -66,7 +67,7 @@ function App() {
 
   const addRect = () => {
     let rect = new fabric.Rect({
-      fill: 'white',
+      fill: '#f48fb1',
       width: 100,
       height: 100,
       left: 200,
@@ -78,7 +79,7 @@ function App() {
 
   const addTri = () => {
     const triangle = new fabric.Triangle({
-      fill: 'blue',
+      fill: '#8bf4c1',
       width: 100,
       height: 100,
       left: 200,
@@ -90,7 +91,7 @@ function App() {
 
   const addCircle = () => {
     const triangle = new fabric.Circle({
-      fill: 'green',
+      fill: '#79e4f6',
       radius: 50,
       left: 200,
       top: 200,
@@ -98,57 +99,6 @@ function App() {
     canvas.add(triangle);
     canvas.requestRenderAll();
   };
-
-  // const addSample = () => {
-
-  //   fabric.loadSVGFromURL('/test_svg/eyes.svg', (objects, options) => {
-  //     var obj = fabric.util.groupSVGElements(objects, options);
-  //     obj
-  //       .scaleToHeight(canvas.height / 2)
-  //       .set({ left: canvas.width / 4, top: canvas.height / 4 })
-  //       .setCoords();
-
-  //     canvas.add(obj).renderAll();
-  //   });
-
-  //   const svgStr = `<svg xmlns="http://www.w3.org/2000/svg" width="167" height="170.57" viewBox="0 0 167 170.57"><g id="body_9"><path fill="#345ee2" d="M167,17.25c0,8.81-7.15,17.6-16,17.6s-16-8.79-16-17.6S142.66,4,151.47,4,167,8.43,167,17.25"/></g></svg>`;
-
-  //   fabric.loadSVGFromString(svgStr, (objects, options) => {
-  //     var obj = fabric.util.groupSVGElements(objects, options);
-  //     obj
-  //       .scaleToHeight(canvas.height / 2)
-  //       .set({ left: canvas.width / 4, top: canvas.height / 4 })
-  //       .setCoords();
-
-  //     canvas.add(obj);
-  //     canvas.requestRenderAll();
-  //   });
-
-  //   const svgStr2 = `<svg xmlns="http://www.w3.org/2000/svg"><g id="mouth_9">
-  //     <path fill="#c52728" d="M29.2,13.84c0,7.64-6.2,8.81-13.84,8.81S1.52,21.48,1.52,13.84a13.84,13.84,0,0,1,27.68,0" transform="translate(0 0)"/>
-  //     <path fill="#fceaed" d="M21.65,7.83a4.73,4.73,0,0,0,2.86-4.35A13.79,13.79,0,0,0,6.28,3.41c.2,2.21,1,4.87,3.63,4.7a5.15,5.15,0,0,0,5-4.19s1.4,6.15,6.71,3.91" transform="translate(0 0)"/>
-  //   </g></svg>`;
-
-  //   fabric.loadSVGFromString(svgStr2, (objects, options) => {
-  //     var obj2 = fabric.util.groupSVGElements(objects, options);
-  //     obj2
-  //       .scaleToHeight(50)
-  //       .set({ left: canvas.width / 4, top: canvas.height / 4 })
-  //       .setCoords();
-
-  //     canvas.add(obj2).renderAll();
-  //   });
-
-  //   fabric.loadSVGFromString(arm9, (objects, options) => {
-  //     var obj2 = fabric.util.groupSVGElements(objects, options);
-  //     obj2
-  //       .scaleToHeight(50)
-  //       .set({ left: canvas.width / 4, top: canvas.height / 4 })
-  //       .setCoords();
-
-  //     canvas.add(obj2);
-  //   });
-  // };
 
   const addText = () => {
     let text = new fabric.IText('Sample Text', {
@@ -267,7 +217,6 @@ function App() {
 
   const saveToJson = () => {
     // var json_data = JSON.stringify(canvas.toDatalessJSON());
-    // console.log('dataless', json_data);
     const result = canvas.toJSON();
     console.log('json', result);
     const str = JSON.stringify(result, null, 2);
@@ -283,18 +232,6 @@ function App() {
     });
   };
 
-  // function readSingleFile(e) {
-  //   var file = e.target.files[0];
-  //   if (!file) {
-  //     return;
-  //   }
-  //   var reader = new FileReader();
-  //   reader.onload = function (e) {
-  //     var contents = e.target.result;
-  //   };
-  //   reader.readAsText(file);
-  // }
-
   const onInputFile = async (e, type) => {
     const file = e?.target?.files[0];
     if (!file) return;
@@ -305,12 +242,6 @@ function App() {
     } else {
       loadJson(data);
     }
-  };
-
-  const handleLoadJson = (e) => {
-    e?.preventDefault();
-    if (!dataJSON) return;
-    loadJson(dataJSON);
   };
 
   const loadJson = (data) => {
@@ -325,13 +256,6 @@ function App() {
         console.log(o, object);
       }
     );
-  };
-
-  const handleLoadSVG = (e) => {
-    e.preventDefault();
-
-    if (!dataSVG) return;
-    loadSvgStr(dataSVG);
   };
 
   const loadSvgStr = (data) => {
@@ -414,38 +338,71 @@ function App() {
       <div className="cols">
         <div>
           <div>
-            <button onClick={() => undo()}>undo</button>
-            <button onClick={() => redo()}>redo</button>
-
-            {/* <button onClick={() => addSample()}>add rects</button> */}
-            <button onClick={() => duplicate()}>duplicate</button>
-            <button onClick={() => addText()}>add text</button>
-            <button onClick={() => removeObj()}>remove current</button>
-            <button onClick={() => group()}>group</button>
-            <button onClick={() => ungroup()}>ungroup</button>
-            <button onClick={() => selectAll()}>selectAll</button>
-            <button onClick={() => deselectAll()}>deselectAll</button>
-          </div>
-          <div>
-            <button onClick={() => clear()}>clear</button>
-            <button onClick={() => sendToBack()}>sendToBack</button>
-            <button onClick={() => sendBackwards()}>sendBackwards</button>
-            <button onClick={() => bringForward()}>bringForward</button>
-            <button onClick={() => bringToFront()}>bringToFront</button>
-            <button onClick={() => saveToSvg()}>saveToSvg</button>
-            <button onClick={() => saveToJson()}>saveToJson</button>
-            <button onClick={() => setZoom(canvas.getZoom() + 0.1)}>
-              zoom
-            </button>
-            <input
-              type="color"
-              value={color}
-              onChange={(e) => handleChangeColor(e.target.value)}
-            />
+            <div>
+              <h4>{'TOOLS'}</h4>
+              <ButtonGroup colorScheme="blackAlpha" size="md" spacing="1">
+                <Button onClick={() => addTri()}>
+                  <FiTriangle />
+                </Button>
+                <Button onClick={() => addCircle()}>
+                  <FiCircle />
+                </Button>
+                <Button onClick={() => addRect()}>
+                  <FiSquare />
+                </Button>
+                <Button onClick={() => addText()}>
+                  <BiText />
+                </Button>
+              </ButtonGroup>
+              <ButtonGroup colorScheme="blackAlpha" size="md" spacing="1">
+                <Button onClick={() => undo()}>
+                  <MdUndo />
+                </Button>
+                <Button onClick={() => redo()}>
+                  <MdRedo />
+                </Button>
+              </ButtonGroup>
+              <ButtonGroup colorScheme="blackAlpha" size="md" spacing="1">
+                <Button onClick={() => duplicate()}>
+                  <BiDuplicate />
+                </Button>
+                <Button onClick={() => removeObj()}>remove current</Button>
+              </ButtonGroup>
+              <ButtonGroup colorScheme="blackAlpha" size="md" spacing="1">
+                <Button onClick={() => group()}>group</Button>
+                <Button onClick={() => ungroup()}>ungroup</Button>
+                <Button onClick={() => sendToBack()}>sendToBack</Button>
+                <Button onClick={() => sendBackwards()}>sendBackwards</Button>
+                <Button onClick={() => bringForward()}>bringForward</Button>
+                <Button onClick={() => bringToFront()}>bringToFront</Button>
+              </ButtonGroup>
+              <ButtonGroup colorScheme="blackAlpha" size="md" spacing="1">
+                <Button onClick={() => selectAll()}>selectAll</Button>
+                <Button onClick={() => deselectAll()}>deselectAll</Button>
+                <Button onClick={() => clear()}>clear</Button>
+                <Button leftIcon={<MdSave />} onClick={() => saveToSvg()}>
+                  Save SVG
+                </Button>
+                <Button leftIcon={<MdSave />} onClick={() => saveToJson()}>
+                  Save JSON
+                </Button>
+                <Button onClick={() => setZoom(canvas.getZoom() + 0.1)}>
+                  zoom
+                </Button>
+              </ButtonGroup>
+            </div>
+            <div>
+              <h4>{'FILL'}</h4>
+              <input
+                type="color"
+                value={color}
+                onChange={(e) => handleChangeColor(e.target.value)}
+              />
+            </div>
           </div>
           <div
             style={{
-              backgroundColor: '#464954',
+              // backgroundColor: '#464954',
               padding: 0,
               margin: 0,
               position: 'relative',
@@ -472,50 +429,9 @@ function App() {
               />
             </section>
           </div>
-
-          <div style={{ display: 'flex' }}>
-            <section>
-              <h4>{'Load JSON'}</h4>
-              <form onSubmit={(e) => handleLoadJson(e)}>
-                <div>
-                  <textarea
-                    cols={30}
-                    rows={10}
-                    value={dataJSON}
-                    onChange={(e) => setDataJSON(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <button type="submit">Load JSON</button>
-                </div>
-              </form>
-            </section>
-            <section>
-              <h4>{'Load SVG'}</h4>
-              <form onSubmit={(e) => handleLoadSVG(e)}>
-                <div>
-                  <textarea
-                    cols={30}
-                    rows={10}
-                    value={dataSVG}
-                    onChange={(e) => setDataSVG(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <button type="submit">Load SVG</button>
-                </div>
-              </form>
-            </section>
-          </div>
         </div>
         <div>
           <div className="sections_wrap">
-            <section>
-              <h4>{'SHAPES'}</h4>
-              <button onClick={() => addTri()}>tri</button>
-              <button onClick={() => addCircle()}>circle</button>
-              <button onClick={() => addRect()}>rect</button>
-            </section>
             {sections.map((section) => {
               return (
                 <section key={section} className="section">
@@ -527,8 +443,8 @@ function App() {
                         <img
                           alt={`${section}_${n}`}
                           key={`${section}_${n}`}
-                          width={75}
-                          height={75}
+                          height={40}
+                          width={40}
                           src={svg}
                           onClick={() => loadSvg(svg)}
                         />

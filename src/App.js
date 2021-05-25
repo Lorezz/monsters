@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { fabric } from 'fabric';
 import saveAs from 'save-as';
 import 'fabric-history';
-import { Button, ButtonGroup } from '@chakra-ui/react';
+import { Button, ButtonGroup, Box } from '@chakra-ui/react';
 import { FiTriangle, FiCircle, FiSquare } from 'react-icons/fi';
 import { BiText, BiDuplicate } from 'react-icons/bi';
 import { MdUndo, MdRedo, MdSave } from 'react-icons/md';
@@ -11,13 +11,13 @@ function App() {
   const [canvas, setCanvas] = useState('');
   const [color, setColor] = useState('#464954');
   const canvasRef = useRef(null);
-  const originalSize = { height: 600, width: 800 };
-
+  const originalSize = { height: 600, width: 600 };
+  const CANVAS_DEFAULT_COLOR = '#464954';
   const initCanvas = () => {
     return new fabric.Canvas(canvasRef.current, {
       ...originalSize,
       // backgroundColor: 'transparent',
-      backgroundColor: '#464954',
+      backgroundColor: CANVAS_DEFAULT_COLOR,
       preserveObjectStacking: true,
       // isDrawingMode: false,
       // selection: false,
@@ -149,6 +149,7 @@ function App() {
 
   const clear = () => {
     !deleteActiveObjects() && canvas.clear();
+    canvas.backgroundColor = CANVAS_DEFAULT_COLOR;
   };
 
   const removeObj = () => {
@@ -345,32 +346,91 @@ function App() {
     resize();
   };
 
-  const onCommad = ({ key }) => {
-    if (key === 'g') {
-      canvas && group();
-    }
+  const zoomIn = () => {
+    setZoom(canvas.getZoom() + 0.1);
+  };
+  const zoomOut = () => {
+    setZoom(canvas.getZoom() - 0.1);
   };
 
-  // const [keysPressed, setKeyPressed] = useState(null);
+  function handleKeyPress(e) {
+    const objType = canvas?.getActiveObject()?.type;
+    if (objType && objType === 'i-text') return;
+    e.preventDefault();
+    // console.log(e.keyCode);
+    if (!e) return;
+    const cmd = e.ctrlKey || e.metaKey; //e.shiftKey ||  e.altKey
 
-  // function downHandler({ key }) {
-  //   // console.log('keydown', key);
-  //   setKeyPressed(key);
-  //   onKeyPress(key);
-  // }
-
+    if (e.keyCode === 90 && e.ctrlKey) {
+      console.log('Ctrl+z');
+      undo();
+    } else if (e.keyCode === 89 && cmd) {
+      console.log('Ctrl+y');
+      redo();
+    } else if (e.keyCode === 71 && cmd) {
+      console.log('Ctrl+g');
+      group();
+    } else if (e.keyCode === 85 && cmd) {
+      console.log('Ctrl+u');
+      ungroup();
+    } else if (e.keyCode === 65 && cmd) {
+      console.log('Ctrl+a');
+      selectAll();
+    } else if (e.keyCode === 27) {
+      console.log('Esc');
+      deselectAll();
+      // } else if (e.keyCode === 67 && cmd) {
+      //   console.log('Ctrl+c');
+      //   copy();
+    } else if (e.keyCode === 187 && cmd) {
+      console.log('Ctrl -');
+      zoomIn();
+    } else if (e.keyCode === 189 && cmd) {
+      console.log('Ctrl -');
+      zoomOut();
+    } else if (e.keyCode === 86 && cmd) {
+      console.log('Ctrl+v');
+      duplicate();
+    } else if (e.keyCode === 8) {
+      console.log('backspace');
+      removeObj();
+    } else if (e.keyCode === 84) {
+      console.log('t');
+      addText();
+    } else if (e.keyCode === 38) {
+      if (cmd) {
+        console.log('to back');
+        sendToBack();
+      } else {
+        console.log('backwards');
+        sendBackwards();
+      }
+    } else if (e.keyCode === 40) {
+      if (cmd) {
+        console.log('to front');
+        bringToFront();
+      } else {
+        console.log('forward');
+        bringForward();
+      }
+    } else {
+      console.log('ignore');
+    }
+  }
   useEffect(() => {
-    console.log('init keyboard');
-    window.addEventListener('keyup', (e) => onCommad(e));
-    return () => {
-      window.removeEventListener('keyup', (e) => onCommad(e));
-    };
-  }, []);
+    if (canvas) {
+      console.log('init keyboard');
+      window.addEventListener('keydown', (e) => handleKeyPress(e));
+      return () => {
+        window.removeEventListener('keydown', handleKeyPress);
+      };
+    }
+  }, [canvas]);
 
   const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   const sections = ['Eyes', 'Body', 'Mouth', 'Legs', 'Arms', 'Accessories'];
   return (
-    <div>
+    <div onKeyDown={(e) => handleKeyPress(e)}>
       <h1>Monster Factory</h1>
       <div className="cols">
         <div>
@@ -423,9 +483,7 @@ function App() {
                 <Button leftIcon={<MdSave />} onClick={() => saveToJson()}>
                   Save JSON
                 </Button>
-                <Button onClick={() => setZoom(canvas.getZoom() + 0.1)}>
-                  zoom
-                </Button>
+                <Button onClick={() => zoomIn()}>zoom</Button>
               </ButtonGroup>
             </div>
             <div>
@@ -477,14 +535,15 @@ function App() {
                     {numbers.map((n) => {
                       const svg = `/svg/${section.toLowerCase()}${n}.svg`;
                       return (
-                        <img
-                          alt={`${section}_${n}`}
-                          key={`${section}_${n}`}
-                          height={40}
-                          width={40}
-                          src={svg}
-                          onClick={() => loadSvg(svg)}
-                        />
+                        <Box d="flex" bg="gray.700" key={`${section}_${n}`}>
+                          <img
+                            alt={`${section}_${n}`}
+                            key={`svg_${section}_${n}`}
+                            src={svg}
+                            onClick={() => loadSvg(svg)}
+                            style={{ width: 40, height: 40 }}
+                          />
+                        </Box>
                       );
                     })}
                   </div>

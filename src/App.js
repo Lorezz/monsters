@@ -2,15 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import { fabric } from 'fabric';
 import saveAs from 'save-as';
 import 'fabric-history';
-import { Button, ButtonGroup, Tooltip } from '@chakra-ui/react';
+import { Button, ButtonGroup } from '@chakra-ui/react';
 import { FiTriangle, FiCircle, FiSquare } from 'react-icons/fi';
 import { BiText, BiDuplicate } from 'react-icons/bi';
 import { MdUndo, MdRedo, MdSave } from 'react-icons/md';
+
 function App() {
   const [canvas, setCanvas] = useState('');
   const [color, setColor] = useState('#464954');
   const canvasRef = useRef(null);
   const originalSize = { height: 600, width: 800 };
+
   const initCanvas = () => {
     return new fabric.Canvas(canvasRef.current, {
       ...originalSize,
@@ -52,6 +54,19 @@ function App() {
       });
     } else {
       aObject.set('fill', fill);
+    }
+    canvas.requestRenderAll();
+  };
+
+  const setStroke = (stroke) => {
+    var aObject = canvas.getActiveObject();
+    if (!aObject) return;
+    if (aObject?.type === 'activeSelection') {
+      aObject.getObjects().forEach((obj) => {
+        obj.set('stroke', stroke);
+      });
+    } else {
+      aObject.set('stroke', stroke);
     }
     canvas.requestRenderAll();
   };
@@ -329,6 +344,28 @@ function App() {
     canvas.setZoom(val);
     resize();
   };
+
+  const onCommad = ({ key }) => {
+    if (key === 'g') {
+      canvas && group();
+    }
+  };
+
+  // const [keysPressed, setKeyPressed] = useState(null);
+
+  // function downHandler({ key }) {
+  //   // console.log('keydown', key);
+  //   setKeyPressed(key);
+  //   onKeyPress(key);
+  // }
+
+  useEffect(() => {
+    console.log('init keyboard');
+    window.addEventListener('keyup', (e) => onCommad(e));
+    return () => {
+      window.removeEventListener('keyup', (e) => onCommad(e));
+    };
+  }, []);
 
   const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   const sections = ['Eyes', 'Body', 'Mouth', 'Legs', 'Arms', 'Accessories'];

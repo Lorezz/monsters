@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { ChakraProvider, DarkMode } from '@chakra-ui/react';
 
 import theme from './theme';
-import './index.css';
+// import './index.css';
 import App from './App';
 
 ReactDOM.render(

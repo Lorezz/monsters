@@ -5,7 +5,7 @@ import 'fabric-history';
 import { FabricContext } from '../lib/ctx';
 import { CANVAS_DEFAULT_COLOR, originalSize } from '../lib/api';
 
-function Canvas() {
+function Canvas({ size }) {
   const [canvas, initCanvas] = useContext(FabricContext);
   const canvasRef = useRef(null);
 

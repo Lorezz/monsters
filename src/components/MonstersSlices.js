@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Heading, Box } from '@chakra-ui/react';
+import { Heading, Box, SimpleGrid, Wrap, WrapItem } from '@chakra-ui/react';
 
 import { FabricContext } from '../lib/ctx';
 import * as api from '../lib/api';
@@ -14,33 +14,35 @@ const MonstersSlices = () => {
   }
 
   return (
-    <Box>
+    <Box w={800} p={10}>
       <Heading fontSize="sm">{'MONSTER SLICES'}</Heading>
-      <Box className="sections_wrap">
+      <Wrap spacing={10}>
         {sections.map((section) => {
           return (
-            <section key={section} className="section">
-              <h4>{section}</h4>
-              <div className="grid">
-                {numbers.map((n) => {
-                  const svg = `/svg/${section.toLowerCase()}${n}.svg`;
-                  return (
-                    <Box d="flex" bg="gray.700" key={`${section}_${n}`}>
-                      <img
-                        alt={`${section}_${n}`}
-                        key={`svg_${section}_${n}`}
-                        src={svg}
-                        onClick={() => api.loadSvg(svg)}
-                        style={{ width: 40, height: 40 }}
-                      />
-                    </Box>
-                  );
-                })}
-              </div>
-            </section>
+            <WrapItem key={section}>
+              <Box>
+                <Heading fontSize="sm">{section}</Heading>
+                <SimpleGrid columns={3} spacing={2}>
+                  {numbers.map((n) => {
+                    const svg = `/svg/${section.toLowerCase()}${n}.svg`;
+                    return (
+                      <Box d="flex" p={2} bg="gray.600" key={`${section}_${n}`}>
+                        <img
+                          alt={`${section}_${n}`}
+                          key={`svg_${section}_${n}`}
+                          src={svg}
+                          onClick={() => api.loadSvg(svg)}
+                          style={{ width: 40, height: 40 }}
+                        />
+                      </Box>
+                    );
+                  })}
+                </SimpleGrid>
+              </Box>
+            </WrapItem>
           );
         })}
-      </Box>
+      </Wrap>
     </Box>
   );
 };

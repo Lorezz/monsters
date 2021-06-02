@@ -23,6 +23,7 @@
     "react-dropzone": "^11.3.2",
     "react-icons": "^4.2.0",
     "react-scripts": "4.0.3",
+    "react-use-dimensions": "^1.2.1",
     "save-as": "^0.1.8",
     "web-vitals": "^1.0.1"
   },

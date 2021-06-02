@@ -3,11 +3,19 @@ import saveAs from 'save-as';
 
 export const CANVAS_DEFAULT_COLOR = '#464954' || 'transparent';
 export const originalSize = { height: 600, width: 600 };
-
+let size = originalSize;
 let canvas = null;
 
 export const setCanvas = (c) => {
   canvas = c;
+};
+
+export const setSize = (s) => {
+  console.log('size', s);
+  canvas.setWidth(s.width);
+  canvas.setHeight(s.height);
+  size = s;
+  canvas.requestRenderAll();
 };
 
 export const setCanvasBGColor = (color) => {
@@ -300,8 +308,8 @@ export const duplicate = () => {
 };
 
 export const resize = () => {
-  canvas.setWidth(originalSize.width * canvas.getZoom());
-  canvas.setHeight(originalSize.height * canvas.getZoom());
+  canvas.setWidth(size.width * canvas.getZoom());
+  canvas.setHeight(size.height * canvas.getZoom());
 };
 
 export const setZoom = (val) => {

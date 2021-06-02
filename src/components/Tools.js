@@ -1,5 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Button, ButtonGroup, Box, Heading, Kbd } from '@chakra-ui/react';
+import {
+  Button,
+  ButtonGroup,
+  Box,
+  Heading,
+  Kbd,
+  Text,
+  Flex,
+} from '@chakra-ui/react';
 import { FiTriangle, FiCircle, FiSquare, FiDelete } from 'react-icons/fi';
 import { BiText, BiDuplicate } from 'react-icons/bi';
 import {
@@ -38,6 +46,11 @@ const Tools = () => {
   useEffect(() => {
     if (canvas) {
       api.setCanvas(canvas);
+      console.log('init keyboard');
+      window.addEventListener('keydown', (e) => api.handleKeyPress(e));
+      return () => {
+        window.removeEventListener('keydown', api.handleKeyPress);
+      };
     }
   }, [canvas]);
 
@@ -45,11 +58,25 @@ const Tools = () => {
     return null;
   }
 
-  const handleChangeColor = (hex) => {
-    console.log('change color', hex);
+  const handleChangeFillColor = (hex) => {
     setColor(hex);
     api.setFill(hex);
   };
+
+  const handleChangeStrokeColor = (hex) => {
+    api.setStroke(hex);
+    setStroke(hex);
+  };
+
+  const handleChangeCanvasBGColor = (hex) => {
+    api.setCanvasBGColor(hex);
+    setBg(hex);
+  };
+
+  // useEffect(() => {
+  //   if (canvas) {
+  //   }
+  // }, [canvas]);
 
   return (
     <Box>
@@ -136,30 +163,32 @@ const Tools = () => {
         </Button>
       </ButtonGroup>
 
-      <Box>
-        <Text fontSize="xs">CANVAS BG</Text>
-        <input
-          type="color"
-          value={bg}
-          onChange={(e) => handleChangeCanvasBGColor(e.target.value)}
-        />
-      </Box>
-      <Box>
-        <Text fontSize="xs">FILL</Text>
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => handleChangeFillColor(e.target.value)}
-        />
-      </Box>
-      <Box>
-        <Text fontSize="xs">STROKE</Text>
-        <input
-          type="color"
-          value={stroke}
-          onChange={(e) => handleChangeStrokeColor(e.target.value)}
-        />
-      </Box>
+      <Flex>
+        <Box>
+          <Text fontSize="xs">CANVAS BG</Text>
+          <input
+            type="color"
+            value={bg}
+            onChange={(e) => handleChangeCanvasBGColor(e.target.value)}
+          />
+        </Box>
+        <Box>
+          <Text fontSize="xs">FILL</Text>
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => handleChangeFillColor(e.target.value)}
+          />
+        </Box>
+        {/* <Box>
+          <Text fontSize="xs">STROKE</Text>
+          <input
+            type="color"
+            value={stroke}
+            onChange={(e) => handleChangeStrokeColor(e.target.value)}
+          />
+        </Box> */}
+      </Flex>
     </Box>
   );
 };

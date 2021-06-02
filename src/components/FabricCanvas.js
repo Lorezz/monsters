@@ -44,16 +44,6 @@ function Canvas() {
     }
   }, [canvas]);
 
-  // useEffect(() => {
-  //   if (canvas) {
-  //     console.log('init keyboard');
-  //     window.addEventListener('keydown', (e) => handleKeyPress(e));
-  //     return () => {
-  //       window.removeEventListener('keydown', handleKeyPress);
-  //     };
-  //   }
-  // }, [canvas]);
-
   // onKeyDown={(e) => handleKeyPress(e)}
   return <canvas ref={canvasRef} />;
 }

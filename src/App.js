@@ -4,6 +4,7 @@ import { FabricContextProvider } from './lib/ctx';
 import FabricCanvas from './components/FabricCanvas';
 import Tools from './components/Tools';
 import MonstersSlices from './components/MonstersSlices';
+import ImportSection from './components/ImportSection';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <FabricCanvas />
         </Box>
         <MonstersSlices />
+        <ImportSection />
       </VStack>
     </FabricContextProvider>
   );

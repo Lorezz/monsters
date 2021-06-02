@@ -10,6 +10,11 @@ export const setCanvas = (c) => {
   canvas = c;
 };
 
+export const setCanvasBGColor = (color) => {
+  canvas.backgroundColor = color;
+  canvas.requestRenderAll();
+};
+
 export const setFill = (fill) => {
   var aObject = canvas.getActiveObject();
   if (!aObject) return;
@@ -206,14 +211,6 @@ export const readFile = (file) => {
 
 export const onInputFile = async (e, type) => {
   const file = e?.target?.files[0];
-  // if (!file) return;
-  // const data = await readFile(file);
-  // console.log(data);
-  // if (type === 'svg') {
-  //   loadSvgStr(data);
-  // } else {
-  //   loadJson(data);
-  // }
   onDropFile(file, type);
 };
 
@@ -276,26 +273,30 @@ export const redo = () => {
 };
 
 export const duplicate = () => {
-  canvas.getActiveObject().clone((cloned) => {
-    canvas.discardActiveObject();
-    cloned.set({
-      left: cloned.left + 10,
-      top: cloned.top + 10,
-      evented: true,
-    });
-    if (cloned.type === 'activeSelection') {
-      // active selection needs a reference to the canvas.
-      cloned.canvas = canvas;
-      cloned.forEachObject((obj) => {
-        canvas.add(obj);
+  try {
+    canvas.getActiveObject().clone((cloned) => {
+      canvas.discardActiveObject();
+      cloned.set({
+        left: cloned.left + 10,
+        top: cloned.top + 10,
+        evented: true,
       });
-      cloned.setCoords();
-    } else {
-      canvas.add(cloned);
-    }
-    canvas.setActiveObject(cloned);
-    canvas.requestRenderAll();
-  });
+      if (cloned.type === 'activeSelection') {
+        // active selection needs a reference to the canvas.
+        cloned.canvas = canvas;
+        cloned.forEachObject((obj) => {
+          canvas.add(obj);
+        });
+        cloned.setCoords();
+      } else {
+        canvas.add(cloned);
+      }
+      canvas.setActiveObject(cloned);
+      canvas.requestRenderAll();
+    });
+  } catch (error) {
+    console.log('error', error);
+  }
 };
 
 export const resize = () => {

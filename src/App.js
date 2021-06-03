@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Stack,
+  VStack,
   HStack,
   ButtonGroup,
   Box,
@@ -15,35 +16,37 @@ import FabricCanvas from './components/FabricCanvas';
 import Tools from './components/Tools';
 import MonstersSlices from './components/MonstersSlices';
 import ImportSection from './components/ImportSection';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
   const [ref, { width, height }] = useDimensions();
   return (
-    <Box p={10}>
-      <FabricContextProvider>
+    <FabricContextProvider>
+      <VStack
+        w="full"
+        h={'100vh'}
+        justifyContent="space-between"
+        overflowY={'scroll'}
+      >
+        <Navbar />
         <HStack
-          spacing={2}
-          w={'100vw'}
+          w={'full'}
+          h={'100vh'}
           justifyContent="flex-start"
           alignItems="flex-start"
         >
           <Tools size={{ width, height }} />
 
-          <Box
-            ref={ref}
-            shadow="md"
-            borderWidth="1px"
-            overflow="hidden"
-            w={'100%'}
-            h={'80vh'}
-          >
+          <Box ref={ref} overflow="hidden" w={'100%'} maxH={'70vh'}>
             <FabricCanvas />
           </Box>
           <MonstersSlices />
           {/* <ImportSection /> */}
         </HStack>
-      </FabricContextProvider>
-    </Box>
+        <Footer alignSelf="flex-end" />
+      </VStack>
+    </FabricContextProvider>
   );
 }
 

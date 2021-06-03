@@ -14,25 +14,30 @@ const MonstersSlices = () => {
   }
 
   return (
-    <Box w={800} p={10}>
-      <Heading fontSize="sm">{'MONSTER SLICES'}</Heading>
-      <Wrap spacing={10}>
+    <Box w={500} p={4}>
+      <Wrap spacing={4}>
         {sections.map((section) => {
           return (
             <WrapItem key={section}>
               <Box>
                 <Heading fontSize="sm">{section}</Heading>
-                <SimpleGrid columns={3} spacing={2}>
+                <SimpleGrid columns={3} spacing={1}>
                   {numbers.map((n) => {
                     const svg = `/svg/${section.toLowerCase()}${n}.svg`;
                     return (
-                      <Box d="flex" p={2} bg="gray.600" key={`${section}_${n}`}>
+                      <Box
+                        d="flex"
+                        p={2}
+                        bg="gray.600"
+                        key={`${section}_${n}`}
+                        rounded="lg"
+                      >
                         <img
                           alt={`${section}_${n}`}
                           key={`svg_${section}_${n}`}
                           src={svg}
                           onClick={() => api.loadSvg(svg)}
-                          style={{ width: 40, height: 40 }}
+                          style={{ width: 36, height: 36 }}
                         />
                       </Box>
                     );

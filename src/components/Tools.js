@@ -90,7 +90,7 @@ const Tools = ({ size }) => {
   // }, [canvas]);
 
   return (
-    <Box w={250} p={10}>
+    <Box w={200} p={4}>
       <Heading fontSize="sm">{'TOOLS'}</Heading>
       <Center>
         <Wrap>

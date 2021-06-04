@@ -35,7 +35,7 @@ const Nav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [canvas] = useContext(FabricContext);
 
-  const baseUrl = 'https://mosters-factory.surge.sh';
+  const baseUrl = 'https://monsters-factory.surge.sh';
   const title = `Monster's Factory`;
   const description = `Try to create the most funny and cute monster.`;
   const image = `${baseUrl}/share.png`;

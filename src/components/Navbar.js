@@ -36,7 +36,7 @@ const Nav = () => {
   const [canvas] = useContext(FabricContext);
 
   const baseUrl = 'https://mosters-factory.surge.sh';
-  const title = `Created with Monster's Factory`;
+  const title = `Monster's Factory`;
   const description = `Try to create the most funny and cute monster.`;
   const image = `${baseUrl}/share.png`;
   const twitterUSer = '@wisejerk';

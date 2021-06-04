@@ -9,7 +9,7 @@ import {
   Flex,
   Stack,
   Center,
-  WrapItem,
+  SimpleGrid,
   Wrap,
 } from '@chakra-ui/react';
 import { FiTriangle, FiCircle, FiSquare, FiDelete } from 'react-icons/fi';
@@ -47,11 +47,32 @@ const Tools = ({ size }) => {
   const [bg, setBg] = useState('#464954');
   const [stroke, setStroke] = useState('#464954');
 
+  const onSelected = () => {
+    console.log('OBJECT SELECTED');
+    if (canvas && canvas.getActiveObjects()) {
+      const items = canvas.getActiveObjects();
+      items.forEach((current) => {
+        console.log(current);
+        const fill = current.get('fill');
+        if (fill) {
+          setColor(fill);
+        }
+        const opacity = current.get('opacity');
+        console.log('fill', fill, 'opacity', opacity);
+      });
+    }
+  };
+
   useEffect(() => {
     if (canvas) {
       api.setCanvas(canvas);
       console.log('init keyboard');
       window.addEventListener('keydown', (e) => api.handleKeyPress(e));
+
+      canvas.on('selection:created', () => onSelected());
+      canvas.on('selection:updated', () => onSelected());
+      canvas.on('object:modified', () => onSelected());
+
       return () => {
         window.removeEventListener('keydown', api.handleKeyPress);
       };
@@ -90,30 +111,27 @@ const Tools = ({ size }) => {
   // }, [canvas]);
 
   return (
-    <Box w={200} p={4}>
+    <Box w={400} p={4}>
       <Heading fontSize="sm">{'TOOLS'}</Heading>
       <Center>
-        <Wrap>
-          <WrapItem>
-            <Box>
-              <Text fontSize="xs">CANVAS BG</Text>
-              <input
-                type="color"
-                value={bg}
-                onChange={(e) => handleChangeCanvasBGColor(e.target.value)}
-              />
-            </Box>
-          </WrapItem>
-          <WrapItem>
-            <Box>
-              <Text fontSize="xs">FILL</Text>
-              <input
-                type="color"
-                value={color}
-                onChange={(e) => handleChangeFillColor(e.target.value)}
-              />
-            </Box>
-          </WrapItem>
+        <SimpleGrid columns={2} spacing={2}>
+          <Box>
+            <Text fontSize="xs">CANVAS BG</Text>
+            <input
+              type="color"
+              value={bg}
+              onChange={(e) => handleChangeCanvasBGColor(e.target.value)}
+            />
+          </Box>
+
+          <Box>
+            <Text fontSize="xs">FILL</Text>
+            <input
+              type="color"
+              value={color}
+              onChange={(e) => handleChangeFillColor(e.target.value)}
+            />
+          </Box>
 
           <Button onClick={() => api.undo()} title="UNDO">
             <MdUndo />
@@ -157,12 +175,15 @@ const Tools = ({ size }) => {
           <Button onClick={() => api.clear()} title="CLEAR CANVAS">
             <MdClose />
           </Button>
-          <Button onClick={() => api.zoomOut()} title="ZOOM OUT">
+          <Button onClick={() => api.addText()}>
+            <BiText />
+          </Button>
+          {/* <Button onClick={() => api.zoomOut()} title="ZOOM OUT">
             <MdZoomOut />
           </Button>
           <Button onClick={() => api.zoomIn()} title="ZOOM IN">
             <MdZoomIn />
-          </Button>
+          </Button> */}
 
           <Button onClick={() => api.addTri()} title="ADD TRIANGLE">
             <FiTriangle />
@@ -173,10 +194,8 @@ const Tools = ({ size }) => {
           <Button onClick={() => api.addRect()} title="ADD RECTANGLE">
             <FiSquare />
           </Button>
-          <Button onClick={() => api.addText()}>
-            <BiText />
-          </Button>
 
+          <Box />
           <Button leftIcon={<MdSave />} onClick={() => api.saveToSvg()}>
             SVG
           </Button>
@@ -192,7 +211,7 @@ const Tools = ({ size }) => {
             onChange={(e) => handleChangeStrokeColor(e.target.value)}
           />
         </Box> */}
-        </Wrap>
+        </SimpleGrid>
       </Center>
     </Box>
   );

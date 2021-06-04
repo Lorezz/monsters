@@ -11,17 +11,17 @@ const ImportSection = () => (
     <Center>
       <Flex alignItems="center">
         <Box mx={1}>
-          <Heading fontSize="sm">{'JSON'}</Heading>
-          <DropArea
-            accept="application/json"
-            onDone={(f) => api.onDropFile(f, 'json')}
-          />
-        </Box>
-        <Box mx={1}>
           <Heading fontSize="sm">{'SVG'}</Heading>
           <DropArea
             accept="image/svg+xml"
             onDone={(f) => api.onDropFile(f, 'svg')}
+          />
+        </Box>
+        <Box mx={1}>
+          <Heading fontSize="sm">{'JSON'}</Heading>
+          <DropArea
+            accept="application/json"
+            onDone={(f) => api.onDropFile(f, 'json')}
           />
         </Box>
       </Flex>

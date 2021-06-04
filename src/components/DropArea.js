@@ -1,9 +1,8 @@
 import React, { useCallback } from 'react';
-import { Box, Text } from '@chakra-ui/react';
-import { MdFileUpload, MdPhoto } from 'react-icons/md';
+import { Box } from '@chakra-ui/react';
+import { MdFileUpload } from 'react-icons/md';
 import { useDropzone } from 'react-dropzone';
-import { BiCodeCurly, BiCode, BiCodeAlt } from 'react-icons/bi';
-// import { humanFileSize, loadImgFromBlob } from 'lib/utils';
+import { BiCodeCurly, BiCodeAlt } from 'react-icons/bi';
 
 const MAX_IMAGE_IN_MB = 2;
 const maxSize = MAX_IMAGE_IN_MB * 1024 * 1034;
@@ -24,13 +23,11 @@ function FileUploader({ onDone, accept = 'image/*' }) {
     }
   }, []);
 
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    // isDragReject,
-    // rejectedFiles
-  } = useDropzone({ onDrop, maxSize, accept });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxSize,
+    accept,
+  });
 
   return (
     <Box mb="20px">
@@ -52,7 +49,11 @@ function FileUploader({ onDone, accept = 'image/*' }) {
             </div>
           ) : (
             <div>
-              <BiCodeCurly size={140} />
+              {accept.includes('json') ? (
+                <BiCodeCurly size={140} />
+              ) : (
+                <BiCodeAlt size={140} />
+              )}
             </div>
           )}
         </Box>

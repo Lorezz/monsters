@@ -23,28 +23,6 @@ function Canvas({ size }) {
     }
   }, [canvasRef]);
 
-  const onSelected = () => {
-    console.log('OBJECT SELECTED');
-    if (canvas && canvas.getActiveObjects()) {
-      const items = canvas.getActiveObjects();
-      items.forEach((current) => {
-        console.log(current);
-        const fill = current.get('fill');
-        const opacity = current.get('opacity');
-        console.log('fill', fill, 'opacity', opacity);
-      });
-    }
-  };
-  useEffect(() => {
-    if (canvas) {
-      canvas.on('selection:created', () => onSelected());
-      canvas.on('selection:cleared', () => {
-        console.log('CLEAR');
-      });
-    }
-  }, [canvas]);
-
-  // onKeyDown={(e) => handleKeyPress(e)}
   return <canvas ref={canvasRef} />;
 }
 

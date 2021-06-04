@@ -1,7 +1,6 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import {
   Box,
-  Text,
   Flex,
   Menu,
   MenuButton,
@@ -10,6 +9,8 @@ import {
   MenuDivider,
   useBreakpointValue,
   useDisclosure,
+  Heading,
+  Button,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -26,6 +27,9 @@ import { FabricContext } from '../lib/ctx';
 import * as api from '../lib/api';
 import { openUrl } from '../lib/utils';
 
+const About = () => <div>ciao</div>;
+const Keys = () => <div>keys</div>;
+
 const Nav = () => {
   const isSM = useBreakpointValue({ base: true, md: false });
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,8 +38,21 @@ const Nav = () => {
   const baseUrl = 'https://mosters-factory.surge.sh';
   const title = `Created with Monster's Factory`;
   const description = `Try to create the most funny and cute monster.`;
-  const image = `${baseUrl}/logo.png`;
+  const image = `${baseUrl}/share.png`;
   const twitterUSer = '@wisejerk';
+
+  const [modalInfo, setModalInfo] = useState({ title: '', type: '' });
+  const handleModal = (type) => {
+    onClose();
+    let info = { title: 'About', type };
+    if (type === 'keys') {
+      info = { title: 'Shortcuts', type };
+    } else if (type === 'import') {
+      info = { title: 'Upload SVG or JSON', type };
+    }
+    setModalInfo(info);
+    onOpen();
+  };
 
   return (
     <>
@@ -60,39 +77,51 @@ const Nav = () => {
         p={1}
         zIndex={2}
         w="full"
-        mb={10}
       >
         <Box d="flex" alignItems="center">
           <Box
             as="img"
             loading="lazy"
-            title="Monsters Factory by Lorezz"
-            src="logo.png"
-            height={[10, 50]}
+            title="Monster's Factory by Lorezz"
+            src="logo.svg"
+            height={10}
             borderRadius="50%"
             mx={2}
-            style={{ border: '2px solid skyblue' }}
+            onClick={() => handleModal('about')}
           />
         </Box>
         <Box d="flex" alignItems="center">
-          <Text>Monster's Factory</Text>
+          <Heading fontFamily="Sedgwick Ave" color="yellow.50">
+            Monster's Factory
+          </Heading>
         </Box>
         <Box d="flex" alignItems="center" mx={4}>
           <Menu>
             <MenuButton>
-              <MdMoreVert size={24} />
+              <Button colorScheme="yellow" size="md" leftIcon={<MdMoreVert />}>
+                {'HELP'}
+              </Button>
             </MenuButton>
             <MenuList>
               {canvas && (
                 <>
-                  <MenuItem icon={<MdFileUpload size={24} />} onClick={onOpen}>
+                  <MenuItem
+                    icon={<MdFileUpload size={24} />}
+                    onClick={() => handleModal('keys')}
+                  >
+                    Keyboard Shortcuts
+                  </MenuItem>
+                  <MenuItem
+                    icon={<MdFileUpload size={24} />}
+                    onClick={() => handleModal('import')}
+                  >
                     Import
                   </MenuItem>
                   <MenuItem
                     icon={<MdSave size={24} />}
-                    onClick={() => api.saveToSvg()}
+                    onClick={() => api.allToGroup()}
                   >
-                    Save SVG
+                    Save SVG without BG
                   </MenuItem>
                   <MenuItem
                     icon={<MdSave size={24} />}
@@ -104,21 +133,37 @@ const Nav = () => {
               )}
               <MenuDivider />
               <MenuItem
+                icon={<MdFileUpload size={24} />}
+                onClick={() => handleModal('about')}
+              >
+                About
+              </MenuItem>
+              <MenuItem
                 icon={<FaGithub size={24} />}
                 onClick={() => openUrl('https://github.com/Lorezz/monsters')}
               >
-                Star
+                {`Star/Fork this project`}
               </MenuItem>
-              <MenuItem icon={<MdShare size={24} />}>Share</MenuItem>
+              <MenuItem icon={<MdShare size={24} />}>
+                Share your Monster
+              </MenuItem>
             </MenuList>
           </Menu>
         </Box>
         <Modal isOpen={isOpen} onClose={onClose} size="xl">
           <ModalOverlay>
             <ModalContent>
-              <ModalHeader>Upload SVG or JSON</ModalHeader>
+              <ModalHeader>{modalInfo.title}</ModalHeader>
               <ModalCloseButton />
-              <ModalBody>{isOpen && <ImportSection />}</ModalBody>
+              <ModalBody>
+                {modalInfo?.type === 'import' ? (
+                  <ImportSection />
+                ) : modalInfo?.type === 'keys' ? (
+                  <Keys />
+                ) : (
+                  <About />
+                )}
+              </ModalBody>
             </ModalContent>
           </ModalOverlay>
         </Modal>

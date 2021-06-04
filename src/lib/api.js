@@ -1,5 +1,6 @@
 import { fabric } from 'fabric';
 import saveAs from 'save-as';
+import * as dayjs from 'dayjs';
 
 export const CANVAS_DEFAULT_COLOR = '#464954' || 'transparent';
 export const originalSize = { height: 600, width: 600 };
@@ -8,6 +9,28 @@ let canvas = null;
 
 export const setCanvas = (c) => {
   canvas = c;
+};
+
+const getFileName = (ext = 'svg') => {
+  return `Monster-${dayjs().format()}.${ext}`;
+};
+
+export const allToGroup = () => {
+  canvas.discardActiveObject();
+  const sel = new fabric.ActiveSelection(canvas.getObjects(), {
+    canvas: canvas,
+  });
+  canvas.setActiveObject(sel);
+  canvas.getActiveObject().toGroup();
+  const obj = canvas.getActiveObject();
+
+  if (obj) {
+    // const { width, height } = obj;
+    const group = canvas.getActiveObject().toSVG();
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg">${group}</svg>`;
+    const blob = new Blob([svg], { type: 'image/svg+xml' });
+    saveAs(blob, getFileName());
+  }
 };
 
 export const setSize = (s) => {
@@ -24,7 +47,7 @@ export const setCanvasBGColor = (color) => {
 };
 
 export const setFill = (fill) => {
-  var aObject = canvas.getActiveObject();
+  const aObject = canvas.getActiveObject();
   if (!aObject) return;
   if (aObject?.type === 'activeSelection') {
     aObject.getObjects().forEach((obj) => {
@@ -197,7 +220,7 @@ export const selectAll = () => {
 export const saveToSvg = () => {
   const svg = canvas.toSVG();
   let blob = new Blob([svg], { type: 'image/svg+xml' });
-  saveAs(blob, 'monster.svg');
+  saveAs(blob, getFileName());
 };
 
 export const saveToJson = () => {
@@ -206,7 +229,7 @@ export const saveToJson = () => {
   console.log('json', result);
   const str = JSON.stringify(result, null, 2);
   let blob = new Blob([str], { type: 'text/plain' });
-  saveAs(blob, 'monster.json');
+  saveAs(blob, getFileName('json'));
 };
 
 export const readFile = (file) => {
@@ -225,7 +248,6 @@ export const onInputFile = async (e, type) => {
 export const onDropFile = async (file, type) => {
   if (!file) return;
   const data = await readFile(file);
-  console.log(data);
   if (type === 'svg') {
     loadSvgStr(data);
   } else {
@@ -247,12 +269,13 @@ export const loadJson = (data) => {
   );
 };
 
-export const loadSvgStr = (data) => {
+export const loadSvgStr = (data, divider = 6) => {
   fabric.loadSVGFromString(data, (objects, options) => {
     var obj = fabric.util.groupSVGElements(objects, options);
     obj
-      .scaleToHeight(canvas.height / 6)
-      .set({ left: canvas.width / 2, top: canvas.height / 2 })
+      .scaleToHeight(canvas.height / divider)
+      // .set({ left: canvas.width / 2, top: canvas.height / 2 })
+      .set({ left: 100, top: 100 })
       .setCoords();
 
     canvas.add(obj);
@@ -260,12 +283,13 @@ export const loadSvgStr = (data) => {
   });
 };
 
-export const loadSvg = (svgPath) => {
+export const loadSvg = (svgPath, divider = 6) => {
   fabric.loadSVGFromURL(svgPath, (objects, options) => {
     var obj = fabric.util.groupSVGElements(objects, options);
     obj
-      .scaleToHeight(canvas.height / 6)
-      .set({ left: canvas.width / 2, top: canvas.height / 2 })
+      .scaleToHeight(canvas.height / divider)
+      // .set({ left: canvas.width / 2, top: canvas.height / 2 })
+      .set({ left: 100, top: 100 })
       .setCoords();
 
     canvas.add(obj);

@@ -1,9 +1,8 @@
 import { extendTheme } from '@chakra-ui/react';
-
 const t = {
   fonts: {
-    body: 'Relaway, system-ui, sans-serif',
-    heading: 'Work+Sans, system-ui, sans-serif',
+    body: 'Raleway, system-ui, sans-serif',
+    heading: 'Sedgwick Ave, system-ui, sans-serif',
   },
   colors: {
     discord: '#7289da',
@@ -29,6 +28,7 @@ const t = {
       html: {
         scrollBehavior: 'smooth',
       },
+      h1: { fontFamily: 'Sedgwick+Ave' },
       'html, body': {
         fontSize: 'sm',
         background: '#2c2f36',

@@ -1,20 +1,12 @@
 import React from 'react';
-import {
-  Stack,
-  VStack,
-  HStack,
-  ButtonGroup,
-  Box,
-  Heading,
-  Kbd,
-  Center,
-} from '@chakra-ui/react';
+import { VStack, HStack, Box } from '@chakra-ui/react';
 
 import useDimensions from 'react-use-dimensions';
 
 import { FabricContextProvider } from './lib/ctx';
 import FabricCanvas from './components/FabricCanvas';
 import Tools from './components/Tools';
+import Buttonbar from './components/Buttonbar';
 import MonstersSlices from './components/MonstersSlices';
 
 import Navbar from './components/Navbar';
@@ -30,6 +22,9 @@ function App() {
         overflowY={'scroll'}
       >
         <Navbar />
+
+        <Buttonbar />
+
         <HStack
           w={'full'}
           h={'100vh'}

@@ -7,7 +7,7 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
-  useBreakpointValue,
+  // useBreakpointValue,
   useDisclosure,
   Heading,
   Button,
@@ -20,7 +20,7 @@ import {
 } from '@chakra-ui/react';
 import { MdSave, MdMoreVert, MdFileUpload, MdShare } from 'react-icons/md';
 import { FaGithub } from 'react-icons/fa';
-import { Helmet } from 'react-helmet';
+// import { Helmet } from 'react-helmet';
 
 import ImportSection from './ImportSection';
 import { FabricContext } from '../lib/ctx';
@@ -31,15 +31,15 @@ const About = () => <div>ciao</div>;
 const Keys = () => <div>keys</div>;
 
 const Nav = () => {
-  const isSM = useBreakpointValue({ base: true, md: false });
+  // const isSM = useBreakpointValue({ base: true, md: false });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [canvas] = useContext(FabricContext);
 
-  const baseUrl = 'https://monsters-factory.surge.sh';
-  const title = `Monster's Factory`;
-  const description = `Try to create the most funny and cute monster.`;
-  const image = `${baseUrl}/share.png`;
-  const twitterUSer = '@wisejerk';
+  // const baseUrl = 'https://monsters-factory.surge.sh';
+  // const title = `Monster's Factory`;
+  // const description = `Try to create the most funny and cute monster.`;
+  // const image = `${baseUrl}/share.png`;
+  // const twitterUSer = '@wisejerk';
 
   const [modalInfo, setModalInfo] = useState({ title: '', type: '' });
   const handleModal = (type) => {
@@ -56,7 +56,7 @@ const Nav = () => {
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <meta property="og:url" content={baseUrl} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
@@ -69,7 +69,7 @@ const Nav = () => {
         <meta name="twitter:creator" content={twitterUSer} />
         <meta name="twitter:image" content={image} />
         <meta name="twitter:domain" content={baseUrl} />
-      </Helmet>
+      </Helmet> */}
 
       <Flex
         justifyContent="space-between"

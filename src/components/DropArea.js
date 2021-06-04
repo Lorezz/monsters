@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Box, Text } from '@chakra-ui/react';
 import { MdFileUpload, MdPhoto } from 'react-icons/md';
 import { useDropzone } from 'react-dropzone';
+import { BiCodeCurly, BiCode, BiCodeAlt } from 'react-icons/bi';
 // import { humanFileSize, loadImgFromBlob } from 'lib/utils';
 
 const MAX_IMAGE_IN_MB = 2;
@@ -33,9 +34,6 @@ function FileUploader({ onDone, accept = 'image/*' }) {
 
   return (
     <Box mb="20px">
-      <Text textAlign="center" mb={2}>
-        Click here or drop a file to upload! Max Sixe: {MAX_IMAGE_IN_MB}MB
-      </Text>
       <Box
         maxW="sm"
         borderWidth="1px"
@@ -54,7 +52,7 @@ function FileUploader({ onDone, accept = 'image/*' }) {
             </div>
           ) : (
             <div>
-              <MdPhoto size={140} />
+              <BiCodeCurly size={140} />
             </div>
           )}
         </Box>

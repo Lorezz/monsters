@@ -1,33 +1,32 @@
-import FileUploader from './DropArea';
+import { Center, Box, Text, Flex, Heading } from '@chakra-ui/react';
+
+import DropArea from './DropArea';
 import * as api from '../lib/api';
 
 const ImportSection = () => (
-  <div style={{ display: 'flex' }}>
-    <section>
-      <h4>{'Load JSON'}</h4>
-      {/* <input
-        type="file"
-        accept="application/json"
-        onChange={(e) => api.onInputFile(e, 'json')}
-      /> */}
-      <FileUploader
-        accept="application/json"
-        onDone={(f) => api.onDropFile(f, 'json')}
-      />
-    </section>
-    <section>
-      <h4>{'Load SVG'}</h4>
-      {/* <input
-        type="file"
-        accept="image/svg+xml"
-        onChange={(e) => api.onInputFile(e, 'svg')}
-      /> */}
-      <FileUploader
-        accept="image/svg+xml"
-        onDone={(f) => api.onDropFile(f, 'svg')}
-      />
-    </section>
-  </div>
+  <Box>
+    <Text textAlign="center" mb={2}>
+      Click here or drop a file to upload!
+    </Text>
+    <Center>
+      <Flex alignItems="center">
+        <Box mx={1}>
+          <Heading fontSize="sm">{'JSON'}</Heading>
+          <DropArea
+            accept="application/json"
+            onDone={(f) => api.onDropFile(f, 'json')}
+          />
+        </Box>
+        <Box mx={1}>
+          <Heading fontSize="sm">{'SVG'}</Heading>
+          <DropArea
+            accept="image/svg+xml"
+            onDone={(f) => api.onDropFile(f, 'svg')}
+          />
+        </Box>
+      </Flex>
+    </Center>
+  </Box>
 );
 
 export default ImportSection;

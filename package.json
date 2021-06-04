@@ -21,8 +21,10 @@
     "react-color": "^2.19.3",
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.3.2",
+    "react-helmet": "^6.1.0",
     "react-icons": "^4.2.0",
     "react-scripts": "4.0.3",
+    "react-share": "^4.4.0",
     "react-use-dimensions": "^1.2.1",
     "save-as": "^0.1.8",
     "web-vitals": "^1.0.1"

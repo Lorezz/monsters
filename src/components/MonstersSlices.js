@@ -5,10 +5,10 @@ import { FabricContext } from '../lib/ctx';
 import * as api from '../lib/api';
 
 const MonstersSlices = () => {
-  const [canvas] = useContext(FabricContext);
   const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
   const sections = ['Eyes', 'Body', 'Mouth', 'Legs', 'Arms', 'Accessories'];
 
+  const [canvas] = useContext(FabricContext);
   if (!canvas) {
     return null;
   }

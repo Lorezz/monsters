@@ -38,7 +38,7 @@ const Nav = () => {
   // const baseUrl = 'https://monsters-factory.surge.sh';
   // const title = `Monster's Factory`;
   // const description = `Try to create the most funny and cute monster.`;
-  // const image = `${baseUrl}/share.png`;
+  // const image = `${baseUrl}/share.jpg`;
   // const twitterUSer = '@wisejerk';
 
   const [modalInfo, setModalInfo] = useState({ title: '', type: '' });

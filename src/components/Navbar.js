@@ -35,10 +35,10 @@ const Nav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [canvas] = useContext(FabricContext);
 
-  // const baseUrl = 'https://monsters-factory.surge.sh';
+  // const baseUrl = 'https://monsters-factory.netlify.app/';
   // const title = `Monster's Factory`;
   // const description = `Try to create the most funny and cute monster.`;
-  // const image = `${baseUrl}/share.jpg`;
+  // const image = `${baseUrl}/og.png`;
   // const twitterUSer = '@wisejerk';
 
   const [modalInfo, setModalInfo] = useState({ title: '', type: '' });
@@ -61,6 +61,8 @@ const Nav = () => {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:image" content={image} />
+        <meta property="og:image:width" content="800" />
+        <meta property="og:image:height" content="516" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content={baseUrl} />

@@ -1,8 +1,8 @@
-import { useContext } from 'react';
 import { Helmet } from 'react-helmet';
-
+// import { useContext } from 'react';
+// import { FabricContext } from '../lib/ctx';
 const Share = () => {
-  const [canvas] = useContext(FabricContext);
+  // const [canvas] = useContext(FabricContext);
 
   const baseUrl = 'https://monsters-factory.netlify.app/';
   const title = `Monster's Factory`;

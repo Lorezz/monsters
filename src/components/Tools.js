@@ -1,18 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react';
-import {
-  Button,
-  Box,
-  Heading,
-  Text,
-  SimpleGrid,
-  useBreakpointValue,
-} from '@chakra-ui/react';
+import { Button, Box, Heading, Text, SimpleGrid } from '@chakra-ui/react';
 import { FiTriangle, FiCircle, FiSquare, FiDelete } from 'react-icons/fi';
 import { BiText, BiDuplicate } from 'react-icons/bi';
 import {
   MdUndo,
   MdRedo,
-  MdSave,
   MdFirstPage,
   MdLastPage,
   MdChevronLeft,
@@ -40,17 +32,16 @@ const Tools = ({ size, isSM }) => {
   const iconSize = isSM ? 14 : 20;
 
   const onSelected = () => {
-    console.log('OBJECT SELECTED');
+    // console.log('OBJECT SELECTED');
     if (canvas && canvas.getActiveObjects()) {
       const items = canvas.getActiveObjects();
       items.forEach((current) => {
-        console.log(current);
         const fill = current.get('fill');
         if (fill) {
           setColor(fill);
         }
-        const opacity = current.get('opacity');
-        console.log('fill', fill, 'opacity', opacity);
+        // const opacity = current.get('opacity');
+        // console.log('fill', fill, 'opacity', opacity);
       });
     }
   };
@@ -58,9 +49,8 @@ const Tools = ({ size, isSM }) => {
   useEffect(() => {
     if (canvas) {
       api.setCanvas(canvas);
-      console.log('init keyboard');
+      // console.log('init keyboard');
       window.addEventListener('keydown', (e) => api.handleKeyPress(e));
-
       canvas.on('selection:created', () => onSelected());
       canvas.on('selection:updated', () => onSelected());
       canvas.on('object:modified', () => onSelected());
@@ -73,7 +63,7 @@ const Tools = ({ size, isSM }) => {
 
   useEffect(() => {
     if (size.width && size.height) {
-      console.log('SET SIZE', size);
+      // console.log('SET SIZE', size);
       api.setSize(size);
     }
   }, [size]);
@@ -96,11 +86,6 @@ const Tools = ({ size, isSM }) => {
     api.setCanvasBGColor(hex);
     setBg(hex);
   };
-
-  // useEffect(() => {
-  //   if (canvas) {
-  //   }
-  // }, [canvas]);
 
   return (
     <Box w={{ base: 100, md: 400 }} p={4} overflowY="scroll" maxH={'90%'}>
@@ -181,12 +166,6 @@ const Tools = ({ size, isSM }) => {
         <Button py={2} onClick={() => api.addText()}>
           <BiText size={iconSize} />
         </Button>
-        {/* <Button py={2} onClick={() => api.zoomOut()} title="ZOOM OUT">
-            <MdZoomOut />
-          </Button>
-          <Button py={2} onClick={() => api.zoomIn()} title="ZOOM IN">
-            <MdZoomIn />
-          </Button> */}
 
         <Button py={2} onClick={() => api.addTri()} title="ADD TRIANGLE">
           <FiTriangle size={iconSize} />
@@ -198,15 +177,19 @@ const Tools = ({ size, isSM }) => {
           <FiSquare size={iconSize} />
         </Button>
 
-        <Box />
-        {/* <Button py={2} leftIcon={<MdSave />} onClick={() => api.saveToSvg()}>
+        {/* <Button py={2} onClick={() => api.zoomOut()} title="ZOOM OUT">
+            <MdZoomOut />
+          </Button>
+          <Button py={2} onClick={() => api.zoomIn()} title="ZOOM IN">
+            <MdZoomIn />
+          </Button>
+          <Button py={2} leftIcon={<MdSave />} onClick={() => api.saveToSvg()}>
             SVG
           </Button>
           <Button py={2} leftIcon={<MdSave />} onClick={() => api.saveToJson()}>
             JSON
-          </Button> */}
-
-        {/* <Box>
+          </Button>
+          <Box>
           <Text fontSize="xs">STROKE</Text>
           <input
             type="color"

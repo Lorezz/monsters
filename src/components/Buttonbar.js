@@ -37,7 +37,6 @@ const Buttonbar = ({ isSM }) => {
 
       <Button
         m={2}
-        MdFileUpload
         leftIcon={<MdFileDownload />}
         onClick={() => api.saveToJson()}
         title="DOWNLAOD JSON"

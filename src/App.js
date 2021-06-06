@@ -1,14 +1,11 @@
 import React from 'react';
 import { VStack, HStack, Box, useBreakpointValue } from '@chakra-ui/react';
-
 import useDimensions from 'react-use-dimensions';
 
 import { FabricContextProvider } from './lib/ctx';
 import FabricCanvas from './components/FabricCanvas';
 import Tools from './components/Tools';
-import Buttonbar from './components/Buttonbar';
 import MonstersSlices from './components/MonstersSlices';
-
 import Navbar from './components/Navbar';
 
 function App() {

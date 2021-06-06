@@ -1,9 +1,15 @@
 # MONSTERS
 
-An web app to create monsters with svg.
+An web-app to create monsters with svg.
 
-Svg included provided by freepick.
+Made with [Fabric.js](http://fabricjs.com) and react
 
-# Demo
+Svg included provided by [freepick](https://it.freepik.com/home).
 
-[https://monsters-factory.surge.sh](https://monsters-factory.surge.sh)
+# Currently deployed on
+
+- surge.sh
+  [https://monsters-factory.surge.sh](https://monsters-factory.surge.sh)
+
+- netlify.com
+  [https://monsters-factory.netlify.app/](https://monsters-factory.netlify.app/)

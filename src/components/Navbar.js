@@ -19,7 +19,6 @@ import {
 } from '@chakra-ui/react';
 
 import {
-  MdSave,
   MdMoreVert,
   MdFileUpload,
   MdShare,
@@ -82,10 +81,13 @@ const Nav = () => {
       </Box>
       <Box d="flex" alignItems="center" mx={4}>
         <Menu>
-          <MenuButton>
-            <Button colorScheme="yellow" size="md" leftIcon={<MdMoreVert />}>
-              {'HELP'}
-            </Button>
+          <MenuButton
+            as={Button}
+            colorScheme="yellow"
+            size="md"
+            leftIcon={<MdMoreVert />}
+          >
+            {'HELP'}
           </MenuButton>
           <MenuList>
             {canvas && (
@@ -133,7 +135,7 @@ const Nav = () => {
               icon={<MdShare size={24} />}
               onClick={() => handleModal('share')}
             >
-              Share your Monster
+              Share Monster's Factory
             </MenuItem>
           </MenuList>
         </Menu>

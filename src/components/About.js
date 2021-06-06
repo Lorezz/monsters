@@ -9,14 +9,18 @@ const About = () => (
     </Text>
     <Text fontSize="lg" pt={5}>
       {` The template of monster's parts in the site is priveded by `}
-      <a href="https://it.freepik.com/home" target="_blank">
+      <a href="https://it.freepik.com/home" target="_blank" rel="noreferrer">
         freepik.com
       </a>
       .
     </Text>
     <Text fontSize="lg" pt={5}>
       {`This is an open-source project, you can find the code on `}
-      <a href="https://github.com/Lorezz/monsters" target="_blank">
+      <a
+        href="https://github.com/Lorezz/monsters"
+        target="_blank"
+        rel="noreferrer"
+      >
         github.com
       </a>
       .

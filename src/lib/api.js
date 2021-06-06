@@ -34,7 +34,7 @@ export const allToGroup = () => {
 };
 
 export const setSize = (s) => {
-  console.log('size', s);
+  // console.log('size', s);
   canvas.setWidth(s.width);
   canvas.setHeight(s.height);
   size = s;
@@ -226,7 +226,7 @@ export const saveToSvg = () => {
 export const saveToJson = () => {
   // var json_data = JSON.stringify(canvas.toDatalessJSON());
   const result = canvas.toJSON();
-  console.log('json', result);
+  // console.log('json', result);
   const str = JSON.stringify(result, null, 2);
   let blob = new Blob([str], { type: 'text/plain' });
   saveAs(blob, getFileName('json'));
@@ -264,7 +264,7 @@ export const loadJson = (data) => {
       canvas.renderAll();
     },
     (o, object) => {
-      console.log(o, object);
+      // console.log(o, object);
     }
   );
 };
@@ -355,60 +355,59 @@ export function handleKeyPress(e) {
   // console.log(e.keyCode);
   if (!e) return;
   const cmd = e.ctrlKey || e.metaKey; //e.shiftKey ||  e.altKey
-
   if (e.keyCode === 90 && e.ctrlKey) {
-    console.log('Ctrl+z');
+    // console.log('Ctrl+z');
     undo();
   } else if (e.keyCode === 89 && cmd) {
-    console.log('Ctrl+y');
+    // console.log('Ctrl+y');
     redo();
   } else if (e.keyCode === 71 && cmd) {
-    console.log('Ctrl+g');
+    // console.log('Ctrl+g');
     group();
   } else if (e.keyCode === 85 && cmd) {
-    console.log('Ctrl+u');
+    // console.log('Ctrl+u');
     ungroup();
   } else if (e.keyCode === 65 && cmd) {
-    console.log('Ctrl+a');
+    // console.log('Ctrl+a');
     selectAll();
   } else if (e.keyCode === 27) {
-    console.log('Esc');
+    // console.log('Esc');
     deselectAll();
     // } else if (e.keyCode === 67 && cmd) {
-    //   console.log('Ctrl+c');
+    // console.log('Ctrl+c');
     //   copy();
   } else if (e.keyCode === 187 && cmd) {
-    console.log('Ctrl -');
+    // console.log('Ctrl -');
     zoomIn();
   } else if (e.keyCode === 189 && cmd) {
-    console.log('Ctrl -');
+    // console.log('Ctrl -');
     zoomOut();
   } else if (e.keyCode === 86 && cmd) {
-    console.log('Ctrl+v');
+    // console.log('Ctrl+v');
     duplicate();
   } else if (e.keyCode === 8) {
-    console.log('backspace');
+    // console.log('backspace');
     removeObj();
   } else if (e.keyCode === 84) {
-    console.log('t');
+    // console.log('t');
     addText();
   } else if (e.keyCode === 38) {
     if (cmd) {
-      console.log('to back');
+      // console.log('to back');
       sendToBack();
     } else {
-      console.log('backwards');
+      // console.log('backwards');
       sendBackwards();
     }
   } else if (e.keyCode === 40) {
     if (cmd) {
-      console.log('to front');
+      // console.log('to front');
       bringToFront();
     } else {
-      console.log('forward');
+      // console.log('forward');
       bringForward();
     }
   } else {
-    console.log('ignore');
+    // console.log('ignore');
   }
 }

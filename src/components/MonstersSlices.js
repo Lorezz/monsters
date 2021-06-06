@@ -1,12 +1,5 @@
 import React, { useContext } from 'react';
-import {
-  Heading,
-  Box,
-  SimpleGrid,
-  Wrap,
-  WrapItem,
-  Center,
-} from '@chakra-ui/react';
+import { Heading, Box, SimpleGrid } from '@chakra-ui/react';
 
 import { FabricContext } from '../lib/ctx';
 import * as api from '../lib/api';

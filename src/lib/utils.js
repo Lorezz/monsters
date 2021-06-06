@@ -3,7 +3,6 @@ export const openUrl = (url) => {
 };
 
 export const svgToB64 = (svg) => {
-  const b64 = 'data:image/svg+xml;base64,' + window.btoa(svg);
+  return 'data:image/svg+xml;base64,' + window.btoa(svg);
   // const  url = 'url("' + b64 + '")';
-  return b64;
 };

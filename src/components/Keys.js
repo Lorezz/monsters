@@ -1,65 +1,99 @@
-import { Box, HStack, Kbd } from '@chakra-ui/react';
+import { Box, Flex, Kbd, Text } from '@chakra-ui/react';
 
-const Keys = () => (
-  <Box mb={10}>
-    <HStack spacing={4}>
-      <Box>
-        <Kbd>Ctrl</Kbd>
-        <Kbd>z</Kbd> Undo
-      </Box>
-      <Box>
-        <Kbd>Ctrl</Kbd>
-        <Kbd> y</Kbd> Redo
-      </Box>
-      <Box>
-        <Kbd>Ctrl </Kbd>
-        <Kbd>g</Kbd>Group
-      </Box>
-      <Box>
-        <Kbd>Ctrl</Kbd>
-        <Kbd> u</Kbd> Ungroup
-      </Box>
-      <Box>
-        <Kbd>Ctrl</Kbd>
-        <Kbd> a</Kbd> Select All
-      </Box>
-      <Box>
-        <Kbd>Esc</Kbd> Deselect All
-      </Box>
-      <Box>
-        <Kbd>Ctrl</Kbd>
-        <Kbd> +</Kbd> Zoom In
-      </Box>
-      <Box>
-        <Kbd>Ctrl</Kbd>
-        <Kbd> -</Kbd> Zoom Out
-      </Box>
-      <Box>
-        <Kbd>Ctrl</Kbd>
-        <Kbd> v</Kbd> Duplicate
-      </Box>
-      <Box>
-        <Kbd>Backspace</Kbd> Delete
-      </Box>
-      <Box>
-        <Kbd>t</Kbd> Add Text
-      </Box>
-      <Box>
-        <Kbd>CMD/WIN </Kbd>
-        <Kbd>LeftArrow</Kbd> Send To Back
-      </Box>
-      <Box>
-        <Kbd>LeftArrow</Kbd> Send Backwards
-      </Box>
-      <Box>
-        <Kbd>CMD/WIN </Kbd>
-        <Kbd>RightArrow</Kbd> Bring To Front
-      </Box>
-      <Box>
-        <Kbd>RightArrow</Kbd> Bring Forward
-      </Box>
-    </HStack>
-  </Box>
-);
+const Keys = () => {
+  const list = [
+    {
+      keys: ['T'],
+      text: 'Add Text ',
+    },
+    {
+      keys: ['Ctrl', 'Z'],
+      text: 'Undo',
+    },
+    {
+      keys: ['Ctrl', 'Y'],
+      text: 'Redo',
+    },
+    {
+      keys: ['Ctrl', ' G'],
+      text: 'Group',
+    },
+    {
+      keys: ['Ctrl', ' U'],
+      text: 'Ungroup',
+    },
+
+    {
+      keys: ['Ctrl', ' V'],
+      text: 'Duplicate',
+    },
+    {
+      keys: ['Ctrl', ' A'],
+      text: 'Select All',
+    },
+    {
+      keys: ['Esc'],
+      text: 'Deselect All',
+    },
+    {
+      keys: ['Backspace'],
+      text: 'Delete ',
+    },
+
+    {
+      keys: ['Ctrl', '+'],
+      text: 'Zoom In',
+    },
+    {
+      keys: ['Ctrl', '-'],
+      text: 'Zoom Out',
+    },
+    {
+      keys: ['Cmd/Win', 'Arrow Up'],
+      text: 'Send To Back',
+    },
+    {
+      keys: ['Arrow Up'],
+      text: 'Send Backwards',
+    },
+    {
+      keys: ['Cmd/Win', 'Arrow Down'],
+      text: 'Bring To Front',
+    },
+    {
+      keys: ['Arrow Down'],
+      text: 'Bring Forward',
+    },
+  ];
+
+  return (
+    <Box mb={10}>
+      <Flex
+        flexDirection="column"
+        alignItems="flex-start"
+        justifyContent="flex-start"
+        p={4}
+      >
+        {list.map((s, i) => {
+          const { keys, text } = s;
+          return (
+            <Flex my={3} key={i} alignItems="space-between" w="full">
+              <Box mr={2}>
+                {keys.map((k) => (
+                  <Kbd key={k} mr={2} fontSize="lg">
+                    {k}
+                  </Kbd>
+                ))}
+              </Box>
+              <Text as="span" fontSize="lg">
+                {text}
+              </Text>
+            </Flex>
+          );
+        })}
+      </Flex>
+    </Box>
+  );
+};
 
 export default Keys;

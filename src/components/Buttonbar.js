@@ -10,7 +10,7 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
-import { MdSave } from 'react-icons/md';
+import { MdFileUpload, MdFileDownload } from 'react-icons/md';
 
 import ImportSection from './ImportSection';
 import { FabricContext } from '../lib/ctx';
@@ -24,26 +24,37 @@ const Buttonbar = () => {
   }
 
   return (
-    <Flex alignItems="center" justifyContent="center">
+    <Flex justifyContent="space-between" w="full" flexDirection="column">
       <Button
-        mx={2}
-        colorScheme="teal"
-        size="lg"
-        leftIcon={<MdSave />}
-        onClick={() => api.saveToSvg()}
-      >
-        SAVE
-      </Button>
-
-      <Button
-        mx={2}
+        m={2}
         colorScheme="blue"
         size="lg"
-        leftIcon={<MdSave />}
+        leftIcon={<MdFileUpload />}
         onClick={onOpen}
       >
         IMPORT
       </Button>
+
+      <Button
+        m={2}
+        size="lg"
+        MdFileUpload
+        leftIcon={<MdFileDownload />}
+        onClick={() => api.saveToJson()}
+      >
+        DOWNLAOD JSON
+      </Button>
+
+      <Button
+        m={2}
+        colorScheme="teal"
+        size="lg"
+        leftIcon={<MdFileDownload />}
+        onClick={() => api.saveToSvg()}
+      >
+        DOWNLAOD SVG
+      </Button>
+
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay>
           <ModalContent>

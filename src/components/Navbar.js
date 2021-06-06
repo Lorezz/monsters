@@ -7,7 +7,6 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
-  // useBreakpointValue,
   useDisclosure,
   Heading,
   Button,
@@ -18,7 +17,15 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react';
-import { MdSave, MdMoreVert, MdFileUpload, MdShare } from 'react-icons/md';
+
+import {
+  MdSave,
+  MdMoreVert,
+  MdFileUpload,
+  MdShare,
+  MdKeyboard,
+  MdFileDownload,
+} from 'react-icons/md';
 import { FaGithub } from 'react-icons/fa';
 
 import { FabricContext } from '../lib/ctx';
@@ -75,7 +82,7 @@ const Nav = () => {
         </Heading>
       </Box>
       <Box d="flex" alignItems="center" mx={4}>
-        <MenuButton>
+        <Menu>
           <MenuButton>
             <Button colorScheme="yellow" size="md" leftIcon={<MdMoreVert />}>
               {'HELP'}
@@ -85,7 +92,7 @@ const Nav = () => {
             {canvas && (
               <>
                 <MenuItem
-                  icon={<MdFileUpload size={24} />}
+                  icon={<MdKeyboard size={24} />}
                   onClick={() => handleModal('keys')}
                 >
                   Keyboard Shortcuts
@@ -97,22 +104,22 @@ const Nav = () => {
                   Import
                 </MenuItem>
                 <MenuItem
-                  icon={<MdSave size={24} />}
+                  icon={<MdFileDownload size={24} />}
                   onClick={() => api.allToGroup()}
                 >
-                  Save SVG without BG
+                  Download SVG without BG
                 </MenuItem>
                 <MenuItem
-                  icon={<MdSave size={24} />}
+                  icon={<MdFileDownload size={24} />}
                   onClick={() => api.saveToJson()}
                 >
-                  Save JSON
+                  Download JSON
                 </MenuItem>
               </>
             )}
             <MenuDivider />
             <MenuItem
-              icon={<MdFileUpload size={24} />}
+              icon={<img src="logo.svg" width={24} height={24} />}
               onClick={() => handleModal('about')}
             >
               About
@@ -130,7 +137,7 @@ const Nav = () => {
               Share your Monster
             </MenuItem>
           </MenuList>
-        </MenuButton>
+        </Menu>
       </Box>
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay>

@@ -23,8 +23,6 @@ function App() {
       >
         <Navbar />
 
-        <Buttonbar />
-
         <HStack
           w={'full'}
           h={'100vh'}

@@ -1,16 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import {
   Button,
-  ButtonGroup,
   Box,
   Heading,
-  Kbd,
   Text,
-  Flex,
-  Stack,
   Center,
   SimpleGrid,
-  Wrap,
 } from '@chakra-ui/react';
 import { FiTriangle, FiCircle, FiSquare, FiDelete } from 'react-icons/fi';
 import { BiText, BiDuplicate } from 'react-icons/bi';
@@ -18,28 +13,23 @@ import {
   MdUndo,
   MdRedo,
   MdSave,
-  MdSelectAll,
-  MdTabUnselected,
   MdFirstPage,
   MdLastPage,
   MdChevronLeft,
   MdChevronRight,
-  MdZoomOut,
-  MdZoomIn,
   MdClose,
 } from 'react-icons/md';
 
 import {
   RiStackFill,
   RiStackLine,
-  RiDragDropFill,
-  RiDragDropLine,
   RiApps2Fill,
   RiApps2Line,
 } from 'react-icons/ri';
 
 import { FabricContext } from '../lib/ctx';
 import * as api from '../lib/api';
+import Buttonbar from './Buttonbar';
 
 const Tools = ({ size }) => {
   const [canvas] = useContext(FabricContext);
@@ -110,100 +100,113 @@ const Tools = ({ size }) => {
   //   }
   // }, [canvas]);
 
+  const iconSize = 20;
+
   return (
     <Box w={400} p={4}>
       <Heading fontSize="sm">{'TOOLS'}</Heading>
-      <Center>
-        <SimpleGrid columns={2} spacing={2}>
-          <Box>
-            <Text fontSize="xs">CANVAS BG</Text>
-            <input
-              type="color"
-              value={bg}
-              onChange={(e) => handleChangeCanvasBGColor(e.target.value)}
-            />
-          </Box>
+      <SimpleGrid columns={2} spacing={2} mb={10}>
+        <Box mb={5}>
+          <Text fontSize="xs">CANVAS BG</Text>
+          <input
+            type="color"
+            value={bg}
+            onChange={(e) => handleChangeCanvasBGColor(e.target.value)}
+          />
+        </Box>
 
-          <Box>
-            <Text fontSize="xs">FILL</Text>
-            <input
-              type="color"
-              value={color}
-              onChange={(e) => handleChangeFillColor(e.target.value)}
-            />
-          </Box>
+        <Box mb={5}>
+          <Text fontSize="xs">FILL</Text>
+          <input
+            type="color"
+            value={color}
+            onChange={(e) => handleChangeFillColor(e.target.value)}
+          />
+        </Box>
 
-          <Button onClick={() => api.undo()} title="UNDO">
-            <MdUndo />
-          </Button>
-          <Button onClick={() => api.redo()} title="REDO">
-            <MdRedo />
-          </Button>
-          <Button onClick={() => api.selectAll()} title="SELECT ALL">
-            <RiApps2Fill />
-          </Button>
-          <Button onClick={() => api.deselectAll()} title="DESELECT ALL">
-            <RiApps2Line />
-          </Button>
+        <Button py={2} onClick={() => api.undo()} title="UNDO">
+          <MdUndo size={iconSize} />
+        </Button>
+        <Button py={2} onClick={() => api.redo()} title="REDO">
+          <MdRedo size={iconSize} />
+        </Button>
+        <Button py={2} onClick={() => api.selectAll()} title="SELECT ALL">
+          <RiApps2Fill size={iconSize} />
+        </Button>
+        <Button py={2} onClick={() => api.deselectAll()} title="DESELECT ALL">
+          <RiApps2Line size={iconSize} />
+        </Button>
 
-          <Button onClick={() => api.duplicate()} title="DUPLICATE SELECTED">
-            <BiDuplicate />
-          </Button>
-          <Button onClick={() => api.removeObj()} title="REMOVE SELECTED">
-            <FiDelete />
-          </Button>
-          <Button onClick={() => api.group()} title="GROUP">
-            <RiStackFill />
-          </Button>
-          <Button onClick={() => api.ungroup()} title="UNGROUP">
-            <RiStackLine />
-          </Button>
+        <Button
+          py={2}
+          onClick={() => api.duplicate()}
+          title="DUPLICATE SELECTED"
+        >
+          <BiDuplicate size={iconSize} />
+        </Button>
+        <Button py={2} onClick={() => api.removeObj()} title="REMOVE SELECTED">
+          <FiDelete size={iconSize} />
+        </Button>
+        <Button py={2} onClick={() => api.group()} title="GROUP">
+          <RiStackFill size={iconSize} />
+        </Button>
+        <Button py={2} onClick={() => api.ungroup()} title="UNGROUP">
+          <RiStackLine size={iconSize} />
+        </Button>
 
-          <Button onClick={() => api.sendToBack()} title="SEND BACK">
-            <MdFirstPage />
-          </Button>
-          <Button onClick={() => api.sendBackwards()} title="SEND BACKWARDS">
-            <MdChevronLeft />
-          </Button>
-          <Button onClick={() => api.bringForward()} title="BRING FORWARD">
-            <MdChevronRight />
-          </Button>
-          <Button onClick={() => api.bringToFront()} title="BRING TO FRONT">
-            <MdLastPage />
-          </Button>
+        <Button py={2} onClick={() => api.sendToBack()} title="SEND BACK">
+          <MdFirstPage size={iconSize} />
+        </Button>
+        <Button
+          py={2}
+          onClick={() => api.sendBackwards()}
+          title="SEND BACKWARDS"
+        >
+          <MdChevronLeft size={iconSize} />
+        </Button>
+        <Button py={2} onClick={() => api.bringForward()} title="BRING FORWARD">
+          <MdChevronRight size={iconSize} />
+        </Button>
+        <Button
+          py={2}
+          onClick={() => api.bringToFront()}
+          title="BRING TO FRONT"
+        >
+          <MdLastPage size={iconSize} />
+        </Button>
 
-          <Button onClick={() => api.clear()} title="CLEAR CANVAS">
-            <MdClose />
-          </Button>
-          <Button onClick={() => api.addText()}>
-            <BiText />
-          </Button>
-          {/* <Button onClick={() => api.zoomOut()} title="ZOOM OUT">
+        <Button py={2} onClick={() => api.clear()} title="CLEAR CANVAS">
+          <MdClose size={iconSize} />
+        </Button>
+        <Button py={2} onClick={() => api.addText()}>
+          <BiText size={iconSize} />
+        </Button>
+        {/* <Button py={2} onClick={() => api.zoomOut()} title="ZOOM OUT">
             <MdZoomOut />
           </Button>
-          <Button onClick={() => api.zoomIn()} title="ZOOM IN">
+          <Button py={2} onClick={() => api.zoomIn()} title="ZOOM IN">
             <MdZoomIn />
           </Button> */}
 
-          <Button onClick={() => api.addTri()} title="ADD TRIANGLE">
-            <FiTriangle />
-          </Button>
-          <Button onClick={() => api.addCircle()} title="ADD CIRCLE">
-            <FiCircle />
-          </Button>
-          <Button onClick={() => api.addRect()} title="ADD RECTANGLE">
-            <FiSquare />
-          </Button>
+        <Button py={2} onClick={() => api.addTri()} title="ADD TRIANGLE">
+          <FiTriangle size={24} />
+        </Button>
+        <Button py={2} onClick={() => api.addCircle()} title="ADD CIRCLE">
+          <FiCircle size={24} />
+        </Button>
+        <Button py={2} onClick={() => api.addRect()} title="ADD RECTANGLE">
+          <FiSquare size={24} />
+        </Button>
 
-          <Box />
-          <Button leftIcon={<MdSave />} onClick={() => api.saveToSvg()}>
+        <Box />
+        {/* <Button py={2} leftIcon={<MdSave />} onClick={() => api.saveToSvg()}>
             SVG
           </Button>
-          <Button leftIcon={<MdSave />} onClick={() => api.saveToJson()}>
+          <Button py={2} leftIcon={<MdSave />} onClick={() => api.saveToJson()}>
             JSON
-          </Button>
+          </Button> */}
 
-          {/* <Box>
+        {/* <Box>
           <Text fontSize="xs">STROKE</Text>
           <input
             type="color"
@@ -211,8 +214,8 @@ const Tools = ({ size }) => {
             onChange={(e) => handleChangeStrokeColor(e.target.value)}
           />
         </Box> */}
-        </SimpleGrid>
-      </Center>
+      </SimpleGrid>
+      <Buttonbar />
     </Box>
   );
 };

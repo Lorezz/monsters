@@ -37,7 +37,6 @@ import Keys from './Keys';
 import Share from './Share';
 
 const Nav = () => {
-  // const isSM = useBreakpointValue({ base: true, md: false });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [canvas] = useContext(FabricContext);
 

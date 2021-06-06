@@ -22,46 +22,47 @@ const MonstersSlices = () => {
   }
 
   return (
-    <Box w={400} maxH={'90%'} overflowY="scroll" p={1}>
-      <Center>
-        <Wrap spacing={4}>
-          {sections.map((section, sectionIndex) => {
-            return (
-              <WrapItem key={section}>
-                <Box>
-                  <Heading fontSize="md" mb={2}>
-                    {section}
-                  </Heading>
-                  <SimpleGrid columns={3} spacing={1}>
-                    {numbers.map((n) => {
-                      const svg = `/svg/${section.toLowerCase()}${n}.svg`;
-                      return (
-                        <Box
-                          d="flex"
-                          p={2}
-                          bg="gray.600"
-                          key={`${section}_${n}`}
-                          rounded="lg"
-                        >
-                          <img
-                            alt={`${section}_${n}`}
-                            key={`svg_${section}_${n}`}
-                            src={svg}
-                            onClick={() =>
-                              api.loadSvg(svg, dividers[sectionIndex])
-                            }
-                            style={{ width: 38, height: 38 }}
-                          />
-                        </Box>
-                      );
-                    })}
-                  </SimpleGrid>
-                </Box>
-              </WrapItem>
-            );
-          })}
-        </Wrap>
-      </Center>
+    <Box
+      w={{ base: 200, md: 400, lg: 600 }}
+      maxH={'90%'}
+      overflowY="scroll"
+      p={3}
+    >
+      <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={4} mb={10}>
+        {sections.map((section, sectionIndex) => {
+          return (
+            <Box key={section}>
+              <Heading fontSize="md" mb={2}>
+                {section}
+              </Heading>
+              <SimpleGrid columns={{ base: 2, sm: 3 }} spacing={1}>
+                {numbers.map((n) => {
+                  const svg = `/svg/${section.toLowerCase()}${n}.svg`;
+                  return (
+                    <Box
+                      d="flex"
+                      p={2}
+                      bg="gray.600"
+                      key={`${section}_${n}`}
+                      rounded="lg"
+                    >
+                      <Box
+                        as="img"
+                        alt={`${section}_${n}`}
+                        key={`svg_${section}_${n}`}
+                        src={svg}
+                        onClick={() => api.loadSvg(svg, dividers[sectionIndex])}
+                        w={{ base: 24, sm: 38 }}
+                        h={{ base: 24, sm: 38 }}
+                      />
+                    </Box>
+                  );
+                })}
+              </SimpleGrid>
+            </Box>
+          );
+        })}
+      </SimpleGrid>
     </Box>
   );
 };

@@ -16,7 +16,7 @@ import ImportSection from './ImportSection';
 import { FabricContext } from '../lib/ctx';
 import * as api from '../lib/api';
 
-const Buttonbar = () => {
+const Buttonbar = ({ isSM }) => {
   const [canvas] = useContext(FabricContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   if (!canvas) {
@@ -28,31 +28,31 @@ const Buttonbar = () => {
       <Button
         m={2}
         colorScheme="blue"
-        size="lg"
         leftIcon={<MdFileUpload />}
         onClick={onOpen}
+        title="IMPORT"
       >
-        IMPORT
+        {!isSM && 'IMPORT'}
       </Button>
 
       <Button
         m={2}
-        size="lg"
         MdFileUpload
         leftIcon={<MdFileDownload />}
         onClick={() => api.saveToJson()}
+        title="DOWNLAOD JSON"
       >
-        DOWNLAOD JSON
+        {!isSM && 'DOWNLAOD JSON'}
       </Button>
 
       <Button
         m={2}
         colorScheme="teal"
-        size="lg"
         leftIcon={<MdFileDownload />}
         onClick={() => api.saveToSvg()}
+        title="DOWNLAOD SVG"
       >
-        DOWNLAOD SVG
+        {!isSM && 'DOWNLAOD SVG'}
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size="xl">

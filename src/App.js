@@ -1,5 +1,5 @@
 import React from 'react';
-import { VStack, HStack, Box } from '@chakra-ui/react';
+import { VStack, HStack, Box, useBreakpointValue } from '@chakra-ui/react';
 
 import useDimensions from 'react-use-dimensions';
 
@@ -13,6 +13,7 @@ import Navbar from './components/Navbar';
 
 function App() {
   const [ref, { width, height }] = useDimensions();
+  const isSM = useBreakpointValue({ base: true, md: false });
   return (
     <FabricContextProvider>
       <VStack
@@ -23,13 +24,15 @@ function App() {
       >
         <Navbar />
 
+        <Box minH={5} w={5} />
+
         <HStack
           w={'full'}
           h={'100vh'}
           justifyContent="flex-start"
           alignItems="flex-start"
         >
-          <Tools size={{ width, height }} />
+          <Tools size={{ width, height }} isSM={isSM} />
 
           <Box
             ref={ref}

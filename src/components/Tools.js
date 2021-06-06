@@ -4,8 +4,8 @@ import {
   Box,
   Heading,
   Text,
-  Center,
   SimpleGrid,
+  useBreakpointValue,
 } from '@chakra-ui/react';
 import { FiTriangle, FiCircle, FiSquare, FiDelete } from 'react-icons/fi';
 import { BiText, BiDuplicate } from 'react-icons/bi';
@@ -31,11 +31,13 @@ import { FabricContext } from '../lib/ctx';
 import * as api from '../lib/api';
 import Buttonbar from './Buttonbar';
 
-const Tools = ({ size }) => {
+const Tools = ({ size, isSM }) => {
   const [canvas] = useContext(FabricContext);
   const [color, setColor] = useState('#464954');
   const [bg, setBg] = useState('#464954');
   const [stroke, setStroke] = useState('#464954');
+
+  const iconSize = isSM ? 14 : 20;
 
   const onSelected = () => {
     console.log('OBJECT SELECTED');
@@ -100,12 +102,10 @@ const Tools = ({ size }) => {
   //   }
   // }, [canvas]);
 
-  const iconSize = 20;
-
   return (
-    <Box w={400} p={4}>
+    <Box w={{ base: 100, md: 400 }} p={4} overflowY="scroll" maxH={'90%'}>
       <Heading fontSize="sm">{'TOOLS'}</Heading>
-      <SimpleGrid columns={2} spacing={2} mb={10}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2} mb={10}>
         <Box mb={5}>
           <Text fontSize="xs">CANVAS BG</Text>
           <input
@@ -189,13 +189,13 @@ const Tools = ({ size }) => {
           </Button> */}
 
         <Button py={2} onClick={() => api.addTri()} title="ADD TRIANGLE">
-          <FiTriangle size={24} />
+          <FiTriangle size={iconSize} />
         </Button>
         <Button py={2} onClick={() => api.addCircle()} title="ADD CIRCLE">
-          <FiCircle size={24} />
+          <FiCircle size={iconSize} />
         </Button>
         <Button py={2} onClick={() => api.addRect()} title="ADD RECTANGLE">
-          <FiSquare size={24} />
+          <FiSquare size={iconSize} />
         </Button>
 
         <Box />
@@ -215,7 +215,7 @@ const Tools = ({ size }) => {
           />
         </Box> */}
       </SimpleGrid>
-      <Buttonbar />
+      <Buttonbar isSM={isSM} />
     </Box>
   );
 };

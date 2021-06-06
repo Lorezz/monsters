@@ -1,8 +1,9 @@
-import { Box, Text, Heading } from '@chakra-ui/react';
+import { Box, Text, Heading, Flex } from '@chakra-ui/react';
 
 const About = () => (
   <Box p={10}>
     <Heading color="gray.100">Hi, Monster's Factory is ...</Heading>
+
     <Text fontSize="lg" pt={5}>
       ... a place where you can play with svg. You can use the body parts inside
       this page, or you can also import external svg images.
@@ -28,9 +29,12 @@ const About = () => (
     <Text fontSize="lg" pt={5}>
       Hope you like and have some fun.
     </Text>
-    <Heading pt={5} color="teal.200">
-      Lorezz.
-    </Heading>
+    <Flex w="full" justifyContent="space-between">
+      <Heading pt={5} color="teal.200">
+        Lorezz.
+      </Heading>
+      <img src="logo.svg" width={70} height={70} style={{ margin: '10px' }} />
+    </Flex>
   </Box>
 );
 export default About;

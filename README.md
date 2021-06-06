@@ -1,5 +1,7 @@
 # MONSTERS
 
+![image Monsters d](./public/logo.svg)
+
 An web-app to create monsters with svg.
 
 Made with [Fabric.js](http://fabricjs.com) and react

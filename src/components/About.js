@@ -9,7 +9,7 @@ const About = () => (
       this page, or you can also import external svg images.
     </Text>
     <Text fontSize="lg" pt={5}>
-      {` The template of monster's parts in the site is priveded by `}
+      {` The template of monster's parts in the site is provided by `}
       <a href="https://it.freepik.com/home" target="_blank" rel="noreferrer">
         freepik.com
       </a>

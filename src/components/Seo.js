@@ -17,7 +17,6 @@ const Seo = () => {
       <meta property="og:image:width" content={w} />
       <meta property="og:image:height" content={h} />
       <meta property="og:type" content="website" />
-
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />

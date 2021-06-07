@@ -8,7 +8,7 @@ const Seo = () => {
   const description = `Try to make the funniest and cutest Monster.`;
   const image = `${baseUrl}/og.png`;
   const w = '800';
-  const h = '516';
+  const h = '403';
   const twitterUser = '@wisejerk';
   return (
     <Helmet>

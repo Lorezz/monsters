@@ -2,9 +2,9 @@
 
 ![image Monster](./public/logo.svg)
 
-An web-app to create monsters with svg.
+A web-app to create monsters with svg.
 
-Made with [Fabric.js](http://fabricjs.com) and react
+Made with [Fabric.js](http://fabricjs.com) and React
 
 Svg included provided by [freepick](https://it.freepik.com/home).
 

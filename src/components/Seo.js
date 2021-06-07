@@ -1,7 +1,9 @@
 import { Helmet } from 'react-helmet';
 
 const Seo = () => {
-  const baseUrl = process.env.REACT_APP_DOMAIN;
+  const baseUrl = process.env.REACT_APP_DOMAIN
+    ? process.env.REACT_APP_DOMAIN
+    : 'https://monster-factory.netlify.app';
   const title = `Monster Factory`;
   const description = `Try to make the funniest and cutest Monster.`;
   const image = `${baseUrl}/og.png`;

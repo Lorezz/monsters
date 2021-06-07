@@ -10,8 +10,8 @@ Svg included provided by [freepick](https://it.freepik.com/home).
 
 # Currently deployed on
 
-- surge.sh
-  [https://monsters-factory.surge.sh](https://monsters-factory.surge.sh)
+- netlify
+  [https://monster-factory.netlify.app/](https://monster-factory.netlify.app/)
 
-- netlify.com
-  [https://monsters-factory.netlify.app/](https://monsters-factory.netlify.app/)
+- surge
+  [https://monster-factory.surge.sh](https://monster-factory.surge.sh)

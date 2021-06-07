@@ -66,7 +66,7 @@ const Nav = () => {
         <Box
           as="img"
           loading="lazy"
-          title="Monster's Factory by Lorezz"
+          title="Monster Factory by Lorezz"
           src="logo.svg"
           height={10}
           borderRadius="50%"
@@ -76,7 +76,7 @@ const Nav = () => {
       </Box>
       <Box d="flex" alignItems="center">
         <Heading fontFamily="Sedgwick Ave" color="yellow.50">
-          Monster's Factory
+          Monster Factory
         </Heading>
       </Box>
       <Box d="flex" alignItems="center" mx={4}>
@@ -135,7 +135,7 @@ const Nav = () => {
               icon={<MdShare size={24} />}
               onClick={() => handleModal('share')}
             >
-              Share Monster's Factory
+              Share Monster Factory
             </MenuItem>
           </MenuList>
         </Menu>

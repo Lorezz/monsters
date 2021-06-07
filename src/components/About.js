@@ -2,7 +2,7 @@ import { Box, Text, Heading, Flex } from '@chakra-ui/react';
 
 const About = () => (
   <Box p={10}>
-    <Heading color="gray.100">Hi, Monster's Factory is ...</Heading>
+    <Heading color="gray.100">Hi, Monster Factory is ...</Heading>
 
     <Text fontSize="lg" pt={5}>
       ... a place where you can play with svg. You can use the body parts inside

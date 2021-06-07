@@ -35,8 +35,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy_surge": "yarn build && surge ./build --domain https://monsters-factory.surge.sh",
-    "deploy_netlify": "yarn build && netlify deploy --prod"
+    "deploy_surge": "yarn build && surge ./build --domain https://monster-factory.surge.sh",
+    "deploy": "yarn build && netlify deploy --prod"
   },
   "eslintConfig": {
     "extends": [

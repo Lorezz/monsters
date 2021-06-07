@@ -24,7 +24,10 @@ Svg included provided by [freepick](https://it.freepik.com/home).
 
 [<img src="./public/samples/happy.svg" width="150"/>](./public/samples/happy.svg)
 [<img src="./public/samples/yo.svg" width="150"/>](./public/samples/yo.svg)
+[<img src="./public/samples/mah.svg" height="110"/>](./public/samples/mah.svg)
 
 [<img src="./public/samples/warrior.svg" width="150"/>](./public/samples/warrior.svg)
-[<img src="./public/samples/chicken.svg" width="150"/>](./public/samples/chicken.svg)
-[<img src="./public/samples/attack.svg" width="150"/>](./public/samples/attack.svg)
+[<img src="./public/samples/chicken.svg" height="150"/>](./public/samples/chicken.svg)
+[<img src="./public/samples/attack.svg" height="150"/>](./public/samples/attack.svg)
+
+

@@ -1,14 +1,12 @@
 import { Helmet } from 'react-helmet';
 
 const Seo = () => {
-  const baseUrl = process.env.REACT_APP_DOMAIN
-    ? process.env.REACT_APP_DOMAIN
-    : 'https://monster-factory.netlify.app';
+  const baseUrl = 'https://monster-factory.netlify.app';
   const title = `Monster Factory`;
   const description = `Try to make the funniest and cutest Monster.`;
   const image = `${baseUrl}/og.png`;
-  const w = '800';
-  const h = '403';
+  const w = '1266';
+  const h = '808';
   const twitterUser = '@wisejerk';
   return (
     <Helmet>
@@ -30,20 +28,3 @@ const Seo = () => {
   );
 };
 export default Seo;
-
-{
-  /* <meta property="og:url" content="https://monsters-factory.netlify.app/" />
-    <meta property="og:title" content="Monster Factory" />
-    <meta property="og:description" content="Try to create the most funny and cute monster." />
-    <meta property="og:image" content="https://monsters-factory.netlify.app/og.png" />
-    <meta property="og:image:width" content="800" />
-    <meta property="og:image:height" content="516" />
-    <meta property="og:type" content="website" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Monster Factory" />
-    <meta name="twitter:description" content="Try to create the most funny and cute monster." />
-    <meta name="twitter:site" content="@wisejerk" />
-    <meta name="twitter:image" content="https://monsters-factory.netlify.app/og.png" />
-    <meta name="twitter:image:alt" content="Monster Factory"/> */
-}

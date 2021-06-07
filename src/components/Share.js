@@ -9,9 +9,7 @@ import {
 // import { FabricContext } from '../lib/ctx';
 // import { svgToB64 } from '../lib/utils';
 const Share = () => {
-  const shareUrl = process.env.REACT_APP_DOMAIN
-    ? process.env.REACT_APP_DOMAIN
-    : 'https://monster-factory.netlify.app';
+  const shareUrl = 'https://monster-factory.netlify.app';
   // const [canvas] = useContext(FabricContext);
   // if (!canvas) {
   //   return null;
